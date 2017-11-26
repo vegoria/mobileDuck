@@ -1,4 +1,4 @@
-package com.example.sylwia.mobileduck.repository.models;
+package com.example.sylwia.mobileduck.db.tables;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by vegor on 22.11.2017.
  */
 
-public class ShoppingList extends BaseModel{
+public class ShoppingList extends BaseModel {
     private String name;
     private Date modificationDate;
     private List<Item> itemsList;

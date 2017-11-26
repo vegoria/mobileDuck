@@ -1,4 +1,4 @@
-package com.example.sylwia.mobileduck.repository.models;
+package com.example.sylwia.mobileduck.db.tables;
 
 /**
  * Created by vegor on 22.11.2017.
