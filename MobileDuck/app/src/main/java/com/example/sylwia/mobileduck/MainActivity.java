@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.dao.UserDAO;
 import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
+import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.User;
 import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
@@ -37,7 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                     for(User user: Manager.getUserFriends("Kamil")){
-                        Log.i("a", user.getLogin());
+                        System.out.println(user.getLogin());
+                        //Log.i("a", user.getLogin());
+                    }
+
+                    //Log.i("s", Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
+                    System.out.println(Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
+
+                    for (Item item : Manager.getItemsFromShoppingList(Manager.getShoppingList("Moja lista", "Kamil"))){
+                        System.out.println(item.getName());
+                        //Log.e("sa", item.getName());
                     }
 
                 } catch (Exception e) {

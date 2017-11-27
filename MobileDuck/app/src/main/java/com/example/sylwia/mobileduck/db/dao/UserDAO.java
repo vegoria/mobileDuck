@@ -72,6 +72,24 @@ public class UserDAO {
         return null;
     }
 
+    public static User getUser(long id){
+        QueryBuilder<User, Integer> queryBuilder = userDao.queryBuilder();
+
+        try {
+            queryBuilder.where().like(User.USER_ID, id);
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        try {
+            return userDao.queryForFirst(queryBuilder.prepare());
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        return null;
+    }
+
     public static void removeUser(String login){
         DeleteBuilder<User, Integer> deleteBuilder = userDao.deleteBuilder();
 

@@ -9,6 +9,7 @@ import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
 import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,10 @@ public class Manager {
         UserDAO.addUser(new User(login));
     }
 
+    public static User getUser(long userId){
+        return UserDAO.getUser(userId);
+    }
+
     public static User getUser(String login){
         return UserDAO.getUser(login);
     }
@@ -55,7 +60,14 @@ public class Manager {
     }
 
     public static List<User> getUserFriends(String login){
-        return UserFriendKeyDAO.getUserFriends(getUser(login));
+        List<UserFriendKey> userFriendKeys = UserFriendKeyDAO.getUserFriendKeys(getUser(login));
+        List<User> friends = new ArrayList<User>();
+
+        for(UserFriendKey userFriendKey : userFriendKeys){
+            friends.add(getUser(userFriendKey.getFriendId()));
+        }
+
+        return friends;
     }
 
     public static void addShoppingList(String shopListName, String userLogin){
@@ -76,5 +88,9 @@ public class Manager {
 
     public static void addItem(String name, int quantity, int status, String userLogin, String shoppingListName){
         ItemDAO.addItem(new Item(name, quantity, status, getShoppingList(shoppingListName, userLogin).getId()));
+    }
+
+    public static List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
+        return ItemDAO.getItemsFromShoppingList(shoppingList);
     }
 }

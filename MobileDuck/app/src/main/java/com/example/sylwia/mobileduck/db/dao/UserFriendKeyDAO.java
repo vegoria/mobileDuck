@@ -8,7 +8,6 @@ import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.DeleteBuilder;
-import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
@@ -70,14 +69,12 @@ public class UserFriendKeyDAO {
         }
     }
 
-    public static List<User> getUserFriends(User user){
+    public static List<UserFriendKey> getUserFriendKeys(User user){
         QueryBuilder<UserFriendKey, Integer> userFriendKeyIntegerQueryBuilder = userFriendDao.queryBuilder();
-        QueryBuilder<User, Integer> userIntegerQueryBuilder = UserDAO.getUserDao().queryBuilder();
 
         try {
             userFriendKeyIntegerQueryBuilder.where().like(UserFriendKey.USER_ID, user.getId());
-            userIntegerQueryBuilder.join(userFriendKeyIntegerQueryBuilder);
-            return UserDAO.getUserDao().query(userIntegerQueryBuilder.prepare());
+            return userFriendDao.query(userFriendKeyIntegerQueryBuilder.prepare());
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

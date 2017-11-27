@@ -4,10 +4,13 @@ import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Connection;
 import com.example.sylwia.mobileduck.db.tables.Item;
+import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by kamil on 27.11.2017.
@@ -39,11 +42,24 @@ public class ItemDAO {
         return instance;
     }
 
-    public static  void addItem(Item item){
+    public static void addItem(Item item){
         try {
             itemDAO.create(item);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }
+    }
+
+    public static List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
+        QueryBuilder<Item, Integer> queryBuilder = itemDAO.queryBuilder();
+
+        try {
+            queryBuilder.where().like(Item.ITEM_SHOP_LIST_ID, shoppingList.getId());
+            return itemDAO.query(queryBuilder.prepare());
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        return null;
     }
 }

@@ -20,7 +20,7 @@ public class Connection {
     private static final String dbUser = "duck";
     private static final String dbPassword = "Ducksolutions1";
 
-    private static final String dbUrl = "jdbc:mysql://" + dbHost +":"+ dbPort +"/" + dbName + "?user=" + dbUser + "&password=" + dbPassword;
+    private static final String dbUrl = "jdbc:mysql://" + dbHost +":"+ dbPort +"/" + dbName + "?user=" + dbUser + "&password=" + dbPassword + "&character_set_client=UTF-8&character_set_database=UTF-8&character_set_results=UTF8&character_set_server=UTF-8&character_set_system=UTF-8";
 
     private static ConnectionSource connectionSource;
     private static Connection instance;
