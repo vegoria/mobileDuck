@@ -9,11 +9,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "user")
 public class User {
-    private static final String USER_ID = "idUser";
-    private static final String USER_LOGIN = "login";
+    public static final String USER_ID = "idUser";
+    public static final String USER_LOGIN = "login";
 
     @DatabaseField(generatedId = true, columnName = USER_ID)
-    public int id;
+    public long id;
 
     @DatabaseField(columnName = USER_LOGIN)
     public String login;
@@ -26,7 +26,7 @@ public class User {
         this.login = login;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
