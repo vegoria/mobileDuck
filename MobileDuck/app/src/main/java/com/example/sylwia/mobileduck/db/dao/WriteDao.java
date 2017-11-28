@@ -1,4 +1,4 @@
-package com.example.sylwia.mobileduck.db.dao.writeDao;
+package com.example.sylwia.mobileduck.db.dao;
 
 /**
  * Created by pawel on 28.11.2017.

@@ -3,6 +3,7 @@ package com.example.sylwia.mobileduck.db.dao.writeDao;
 import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Connection;
+import com.example.sylwia.mobileduck.db.dao.WriteDao;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;

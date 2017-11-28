@@ -3,6 +3,7 @@ package com.example.sylwia.mobileduck.db.dao.readDao;
 import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Connection;
+import com.example.sylwia.mobileduck.db.dao.ReadDao;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.j256.ormlite.dao.Dao;
@@ -25,7 +26,8 @@ public class ItemReadDao implements ReadDao<Item> {
         Connection.getInstance();
         try {
             itemDao = DaoManager.createDao(Connection.getConnectionSource(), Item.class);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }
     }

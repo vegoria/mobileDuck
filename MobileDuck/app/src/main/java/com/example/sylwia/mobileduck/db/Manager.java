@@ -8,7 +8,6 @@ import com.example.sylwia.mobileduck.db.dao.writeDao.ItemWriteDao;
 import com.example.sylwia.mobileduck.db.dao.writeDao.ShoppingListWriteDao;
 import com.example.sylwia.mobileduck.db.dao.writeDao.UserFriendWriteDao;
 import com.example.sylwia.mobileduck.db.dao.writeDao.UserWriteDao;
-import com.example.sylwia.mobileduck.db.dao.writeDao.WriteDao;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;

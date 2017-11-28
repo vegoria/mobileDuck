@@ -1,4 +1,4 @@
-package com.example.sylwia.mobileduck.db.dao.readDao;
+package com.example.sylwia.mobileduck.db.dao;
 
 import java.util.List;
 
