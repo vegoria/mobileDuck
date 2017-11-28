@@ -4,6 +4,8 @@ import com.example.sylwia.mobileduck.db.dao.ItemDAO;
 import com.example.sylwia.mobileduck.db.dao.ShoppingListDAO;
 import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
 import com.example.sylwia.mobileduck.db.dao.readDao.ReadDao;
+import com.example.sylwia.mobileduck.db.dao.readDao.ShoppingListReadDao;
+import com.example.sylwia.mobileduck.db.dao.readDao.UserFriendReadDao;
 import com.example.sylwia.mobileduck.db.dao.readDao.UserReadDao;
 import com.example.sylwia.mobileduck.db.dao.writeDao.ItemWriteDao;
 import com.example.sylwia.mobileduck.db.dao.writeDao.ShoppingListWriteDao;
@@ -31,6 +33,8 @@ public class Manager {
     private UserFriendWriteDao userFriendWriteDao;
 
     private ReadDao<User> userReadDao;
+    private ReadDao<ShoppingList> shoppingListReadDao;
+    private UserFriendReadDao userFriendReadDao;
 
     public Manager(){
         userWriteDao = new UserWriteDao();
@@ -39,8 +43,8 @@ public class Manager {
         userFriendWriteDao = new UserFriendWriteDao();
 
         userReadDao = new UserReadDao();
-        ShoppingListDAO.getInstance();
-        UserFriendKeyDAO.getInstance();
+        shoppingListReadDao = new ShoppingListReadDao();
+        userFriendReadDao = new UserFriendReadDao();
     }
 
     /* Write method (add, remove) */
@@ -96,11 +100,11 @@ public class Manager {
         return friends;
     }
 
-    public static ShoppingList getShoppingList(String shopListName, String userLogin){
+    public ShoppingList getShoppingList(String shopListName, String userLogin){
         return ShoppingListDAO.getShoppingList(shopListName, getUser(userLogin).getId());
     }
 
-    public static List<ShoppingList> getShoppingListsForSpecifiedUser(String userLogin){
+    public List<ShoppingList> getShoppingListsForSpecifiedUser(String userLogin){
         return ShoppingListDAO.getShoppingListForSpecifiedUser(getUser(userLogin).getId());
     }
 

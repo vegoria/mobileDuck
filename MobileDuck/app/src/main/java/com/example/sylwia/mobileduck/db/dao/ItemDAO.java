@@ -51,7 +51,6 @@ public class ItemDAO {
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }
-
         return null;
     }
 }
