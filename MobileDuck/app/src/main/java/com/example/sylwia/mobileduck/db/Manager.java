@@ -91,7 +91,6 @@ public class Manager {
         for(UserFriendKey userFriendKey : userFriendKeys){
             friends.add(getUser(userFriendKey.getFriendId()));
         }
-
         return friends;
     }
 

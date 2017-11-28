@@ -45,30 +45,6 @@ public class UserFriendKeyDAO {
         return instance;
     }
 
-    public static void addUserFriendKey(UserFriendKey userFriendKey){
-        try {
-            userFriendDao.create(userFriendKey);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
-    public static void removeFriend(User user, User userFriend){
-        DeleteBuilder<UserFriendKey, Integer> deleteBuilder = userFriendDao.deleteBuilder();
-
-        try {
-            deleteBuilder.where().like(UserFriendKey.USER_ID, user.getId()).and().like(UserFriendKey.FRIEND_ID, userFriend.getId());
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        try {
-            userFriendDao.delete(deleteBuilder.prepare());
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
     public static List<UserFriendKey> getUserFriendKeys(User user){
         QueryBuilder<UserFriendKey, Integer> userFriendKeyIntegerQueryBuilder = userFriendDao.queryBuilder();
 

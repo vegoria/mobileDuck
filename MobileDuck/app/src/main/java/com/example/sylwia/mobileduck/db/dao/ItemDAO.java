@@ -42,14 +42,6 @@ public class ItemDAO {
         return instance;
     }
 
-    public static void addItem(Item item){
-        try {
-            itemDAO.create(item);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
     public static List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
         QueryBuilder<Item, Integer> queryBuilder = itemDAO.queryBuilder();
 
