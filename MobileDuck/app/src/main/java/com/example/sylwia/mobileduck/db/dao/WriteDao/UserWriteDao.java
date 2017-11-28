@@ -63,11 +63,8 @@ public class UserWriteDao implements WriteDao<User> {
             return;
         }
 
-        DeleteBuilder<User, Integer> deleteBuilder = userDao.deleteBuilder();
-
         try {
-            deleteBuilder.where().like(User.USER_LOGIN, user.getLogin());
-            userDao.delete(deleteBuilder.prepare());
+            userDao.delete(user);
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

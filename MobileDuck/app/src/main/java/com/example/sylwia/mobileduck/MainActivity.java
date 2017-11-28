@@ -23,29 +23,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
-                    Manager.getInstance();
-                    Manager.addUser("Kamil");
-                    Manager.addUser("Pawel");
-                    Manager.addUser("Sylwia");
-                    Manager.addUser("Duck");
-                    Manager.addUser("Michal");
+                    Manager manager = new Manager();
 
-                    Manager.addFriend("Kamil", "Duck");
-                    Manager.addFriend("Kamil", "Michal");
+                    manager.addUser("TestKamil");
+                    manager.addUser("TestPawel");
+                    manager.addUser("TestSylwia");
+                    manager.addUser("TestDuck");
+                    manager.addUser("TestMichal");
 
-                    Manager.addShoppingList("Moja lista", "Kamil");
-                    Manager.addItem("Maslo",1,0,"Kamil", "Moja lista");
+                    manager.addFriend("TestKamil", "TestDuck");
+                    manager.addFriend("TestKamil", "TestMichal");
+
+                    manager.addShoppingList("Moja testowa lista", "TestKamil");
+                    manager.addItem("TestMaslo",1,0,"TestKamil", "Moja testowa lista");
 
 
-                    for(User user: Manager.getUserFriends("Kamil")){
+                    for(User user: manager.getUserFriends("TestKamil")){
                         System.out.println(user.getLogin());
                         //Log.i("a", user.getLogin());
                     }
 
                     //Log.i("s", Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
-                    System.out.println(Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
+                    System.out.println(manager.getShoppingListsForSpecifiedUser("TestKamil").get(0).getName());
 
-                    for (Item item : Manager.getItemsFromShoppingList(Manager.getShoppingList("Moja lista", "Kamil"))){
+                    for (Item item : manager.getItemsFromShoppingList(manager.getShoppingList("Moja testowa lista", "TestKamil"))){
                         System.out.println(item.getName());
                         //Log.e("sa", item.getName());
                     }

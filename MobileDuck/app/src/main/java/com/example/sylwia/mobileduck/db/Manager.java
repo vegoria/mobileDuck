@@ -4,7 +4,11 @@ import com.example.sylwia.mobileduck.db.dao.ItemDAO;
 import com.example.sylwia.mobileduck.db.dao.ShoppingListDAO;
 import com.example.sylwia.mobileduck.db.dao.UserDAO;
 import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
+import com.example.sylwia.mobileduck.db.dao.WriteDao.ItemWriteDao;
+import com.example.sylwia.mobileduck.db.dao.WriteDao.ShoppingListWriteDao;
+import com.example.sylwia.mobileduck.db.dao.WriteDao.UserFriendWriteDao;
 import com.example.sylwia.mobileduck.db.dao.WriteDao.UserWriteDao;
+import com.example.sylwia.mobileduck.db.dao.WriteDao.WriteDao;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
@@ -19,26 +23,58 @@ import java.util.List;
  */
 
 public class Manager {
-    private static Manager instance;
 
-    private Manager(){
-        ItemDAO.getInstance();
+    private WriteDao<User> userWriteDao;
+    private WriteDao<Item> itemWriteDao;
+    private WriteDao<ShoppingList> shoppingListWriteDao;
+    private UserFriendWriteDao userFriendWriteDao;
+
+    public Manager(){
+        userWriteDao = new UserWriteDao();
+        itemWriteDao = new ItemWriteDao();
+        shoppingListWriteDao = new ShoppingListWriteDao();
+        userFriendWriteDao = new UserFriendWriteDao();
+
+        UserDAO.getInstance();
         ShoppingListDAO.getInstance();
         UserDAO.getInstance();
         UserFriendKeyDAO.getInstance();
     }
 
-    public static Manager getInstance(){
-        if(instance == null){
-            instance = new Manager();
-        }
+    /* Write method (add, remove) */
 
-        return instance;
+    public void addUser(String login){
+        userWriteDao.save(new User(login));
     }
 
-    public static void addUser(String login){
-        UserDAO.addUser(new User(login));
+    public void deleteUser(String login){
+        userWriteDao.delete(new User(login));
     }
+
+    public void addFriend(String userLogin, String friendUserLogin){
+        userFriendWriteDao.save(
+                new UserFriendKey(getUser(userLogin).getId(), getUser(friendUserLogin).getId()));
+    }
+
+    public void removeFriend(String userLogin, String friendUserLogin){
+        userFriendWriteDao.deleteFriend(getUser(userLogin), getUser(friendUserLogin));
+    }
+
+    public void addShoppingList(String shopListName, String userLogin){
+        shoppingListWriteDao.save(
+                new ShoppingList(shopListName, new Date(), getUser(userLogin).getId()));
+    }
+
+    public void addItem(String name, int quantity, int status, String userLogin, String shoppingListName){
+        itemWriteDao.save(
+                new Item(name, quantity, status, getShoppingList(shoppingListName, userLogin).getId()));
+    }
+
+    public void removeShoppingList(String shopListName, String userLogin){
+        shoppingListWriteDao.delete(getShoppingList(shopListName, userLogin));
+    }
+
+    /* read methods (get) */
 
     public static User getUser(long userId){
         return UserDAO.getUser(userId);
@@ -46,18 +82,6 @@ public class Manager {
 
     public static User getUser(String login){
         return UserDAO.getUser(login);
-    }
-
-    public static void removeUser(String login){
-        UserDAO.removeUser(login);
-    }
-
-    public static void addFriend(String userLogin, String friendUserLogin){
-        UserFriendKeyDAO.addUserFriendKey(new UserFriendKey(getUser(userLogin).getId(), getUser(friendUserLogin).getId()));
-    }
-
-    public static void removeFriend(String userLogin, String friendUserLogin){
-        UserFriendKeyDAO.removeFriend(getUser(userLogin), getUser(friendUserLogin));
     }
 
     public static List<User> getUserFriends(String login){
@@ -71,24 +95,12 @@ public class Manager {
         return friends;
     }
 
-    public static void addShoppingList(String shopListName, String userLogin){
-        ShoppingListDAO.addShoppingList(new ShoppingList(shopListName, new Date(), getUser(userLogin).getId()));
-    }
-
     public static ShoppingList getShoppingList(String shopListName, String userLogin){
         return ShoppingListDAO.getShoppingList(shopListName, getUser(userLogin).getId());
     }
 
-    public static void removeShoppingList(String shopListName, String userLogin){
-        ShoppingListDAO.removeShoppingList(getShoppingList(shopListName, userLogin));
-    }
-
     public static List<ShoppingList> getShoppingListsForSpecifiedUser(String userLogin){
         return ShoppingListDAO.getShoppingListForSpecifiedUser(getUser(userLogin).getId());
-    }
-
-    public static void addItem(String name, int quantity, int status, String userLogin, String shoppingListName){
-        ItemDAO.addItem(new Item(name, quantity, status, getShoppingList(shoppingListName, userLogin).getId()));
     }
 
     public static List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
