@@ -41,14 +41,6 @@ public class ShoppingListDAO {
         return instance;
     }
 
-    public static void addShoppingList(ShoppingList shoppingList){
-        try {
-            shoppingListDAO.create(shoppingList);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
     public static ShoppingList getShoppingList(String shopListName, long userId){
         QueryBuilder<ShoppingList, Integer> queryBuilder = shoppingListDAO.queryBuilder();
 
@@ -60,14 +52,6 @@ public class ShoppingListDAO {
         }
 
         return null;
-    }
-
-    public static void removeShoppingList(ShoppingList shoppingList){
-        try {
-            shoppingListDAO.delete(shoppingList);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
     }
 
     public static List<ShoppingList> getShoppingListForSpecifiedUser(long userId){

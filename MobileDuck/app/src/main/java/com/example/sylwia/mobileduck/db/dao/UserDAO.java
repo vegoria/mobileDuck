@@ -42,18 +42,6 @@ public class UserDAO {
         return instance;
     }
 
-    public static void addUser(User user){
-        Log.i(TAG, "Adding user " + user.getLogin());
-
-        try {
-            userDao.create(user);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        Log.i(TAG, "Added user " + user.getLogin());
-    }
-
     public static User getUser(String login){
         QueryBuilder<User, Integer> queryBuilder = userDao.queryBuilder();
 
@@ -89,23 +77,6 @@ public class UserDAO {
 
         return null;
     }
-
-    public static void removeUser(String login){
-        DeleteBuilder<User, Integer> deleteBuilder = userDao.deleteBuilder();
-
-        try {
-            deleteBuilder.where().like(User.USER_LOGIN, login);
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        try {
-            userDao.delete(deleteBuilder.prepare());
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
 
     public static Dao<User, Integer> getUserDao() {
         return userDao;
