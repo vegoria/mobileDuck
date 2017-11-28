@@ -2,14 +2,10 @@ package com.example.sylwia.mobileduck;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Manager;
-import com.example.sylwia.mobileduck.db.dao.UserDAO;
-import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.User;
-import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                         //Log.i("a", user.getLogin());
                     }
 
-                    //Log.i("s", Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
-                    System.out.println(manager.getShoppingListsForSpecifiedUser("TestKamil").get(0).getName());
+                    //Log.i("s", Manager.getUserShoppingLists("Kamil").get(0).getName());
+                    System.out.println(manager.getUserShoppingLists("TestKamil").get(0).getName());
 
                     for (Item item : manager.getItemsFromShoppingList(manager.getShoppingList("Moja testowa lista", "TestKamil"))){
                         System.out.println(item.getName());
