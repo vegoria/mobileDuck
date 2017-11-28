@@ -17,10 +17,8 @@ import java.sql.SQLException;
 
 public class UserWriteDao implements WriteDao<User> {
 
-    private static final String TAG = "UserDAO";
+    private static final String TAG = "UserDao";
     private static Dao<User, Integer> userDao;
-
-//    private static UserWriteDao instance;
 
     public UserWriteDao() {
         Connection.getInstance();
@@ -33,6 +31,10 @@ public class UserWriteDao implements WriteDao<User> {
 
     @Override
     public void save(User user) {
+        if(user == null) {
+            return;
+        }
+
         try {
             userDao.create(user);
         }
@@ -43,11 +45,24 @@ public class UserWriteDao implements WriteDao<User> {
 
     @Override
     public void update(User user) {
+        if (user == null) {
+            return;
+        }
 
+        try {
+            userDao.update(user);
+        }
+        catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override
     public void delete(User user) {
+        if(user == null) {
+            return;
+        }
+
         DeleteBuilder<User, Integer> deleteBuilder = userDao.deleteBuilder();
 
         try {

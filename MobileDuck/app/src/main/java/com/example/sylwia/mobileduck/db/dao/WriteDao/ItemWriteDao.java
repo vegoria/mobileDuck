@@ -15,7 +15,7 @@ import com.j256.ormlite.dao.DaoManager;
 
 public class ItemWriteDao implements WriteDao<Item> {
 
-    private static final String TAG = "ItemDAO";
+    private static final String TAG = "ItemDao";
     private static Dao<Item, Integer> itemDao;
     private static ItemWriteDao instance;
 
@@ -31,6 +31,9 @@ public class ItemWriteDao implements WriteDao<Item> {
 
     @Override
     public void save(Item item) {
+        if(item == null) {
+            return;
+        }
         try {
             itemDao.create(item);
         }
@@ -41,6 +44,9 @@ public class ItemWriteDao implements WriteDao<Item> {
 
     @Override
     public void update(Item item) {
+        if(item == null) {
+            return;
+        }
         try {
             itemDao.update(item);
         } catch (java.sql.SQLException e) {
@@ -50,6 +56,9 @@ public class ItemWriteDao implements WriteDao<Item> {
 
     @Override
     public void delete(Item item) {
+        if(item == null) {
+            return;
+        }
         try {
             itemDao.delete(item);
         } catch (java.sql.SQLException e) {

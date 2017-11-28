@@ -31,6 +31,10 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
 
     @Override
     public void save(ShoppingList shoppingList) {
+        if(shoppingList == null) {
+            return;
+        }
+
         try {
             shoppingListDao.create(shoppingList);
         }
@@ -41,6 +45,9 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
 
     @Override
     public void update(ShoppingList shoppingList) {
+        if(shoppingList == null) {
+            return;
+        }
         try {
             shoppingListDao.update(shoppingList);
         }
@@ -51,6 +58,9 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
 
     @Override
     public void delete(ShoppingList shoppingList) {
+        if(shoppingList == null) {
+            return;
+        }
         try {
             shoppingListDao.delete(shoppingList);
         } catch (SQLException e) {

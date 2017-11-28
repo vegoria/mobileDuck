@@ -32,6 +32,10 @@ public class UserFriendWriteDao {
     }
 
     public void save(UserFriendKey userFriendKey) {
+        if(userFriendKey == null) {
+            return;
+        }
+
         try {
             userFriendDao.create(userFriendKey);
         } catch (SQLException e) {
@@ -40,6 +44,10 @@ public class UserFriendWriteDao {
     }
 
     public void deleteFriend(User user, User friend) {
+        if(user == null || friend == null) {
+            return;
+        }
+
         DeleteBuilder<UserFriendKey, Integer> deleteBuilder = userFriendDao.deleteBuilder();
 
         try {
