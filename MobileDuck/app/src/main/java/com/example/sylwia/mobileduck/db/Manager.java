@@ -4,6 +4,7 @@ import com.example.sylwia.mobileduck.db.dao.ItemDAO;
 import com.example.sylwia.mobileduck.db.dao.ShoppingListDAO;
 import com.example.sylwia.mobileduck.db.dao.UserDAO;
 import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
+import com.example.sylwia.mobileduck.db.dao.WriteDao.UserWriteDao;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
