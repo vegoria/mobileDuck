@@ -2,14 +2,10 @@ package com.example.sylwia.mobileduck;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Manager;
-import com.example.sylwia.mobileduck.db.dao.UserDAO;
-import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.User;
-import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
 public class MainActivity extends AppCompatActivity {
 
