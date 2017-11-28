@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                         //Log.i("a", user.getLogin());
                     }
 
-                    //Log.i("s", Manager.getShoppingListsForSpecifiedUser("Kamil").get(0).getName());
-                    System.out.println(manager.getShoppingListsForSpecifiedUser("TestKamil").get(0).getName());
+                    //Log.i("s", Manager.getUserShoppingLists("Kamil").get(0).getName());
+                    System.out.println(manager.getUserShoppingLists("TestKamil").get(0).getName());
 
                     for (Item item : manager.getItemsFromShoppingList(manager.getShoppingList("Moja testowa lista", "TestKamil"))){
                         System.out.println(item.getName());

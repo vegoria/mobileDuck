@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Connection;
 import com.example.sylwia.mobileduck.db.tables.Item;
-import com.example.sylwia.mobileduck.db.tables.User;
+import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -37,6 +37,19 @@ public class ItemReadDao implements ReadDao<Item> {
         try {
             queryBuilder.where().like(Item.ITEM_ID, id);
             return itemDao.queryForFirst(queryBuilder.prepare());
+        }
+        catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Item> getShoppingListItems(ShoppingList list) {
+        QueryBuilder<Item, Integer> queryBuilder = itemDao.queryBuilder();
+
+        try {
+            queryBuilder.where().like(Item.ITEM_SHOP_LIST_ID, list.getId());
+            return itemDao.query(queryBuilder.prepare());
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

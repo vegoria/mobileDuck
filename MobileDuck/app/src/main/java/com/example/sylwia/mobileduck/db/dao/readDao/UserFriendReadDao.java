@@ -3,7 +3,6 @@ package com.example.sylwia.mobileduck.db.dao.readDao;
 import android.util.Log;
 
 import com.example.sylwia.mobileduck.db.Connection;
-import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
 import com.example.sylwia.mobileduck.db.tables.User;
 import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 import com.j256.ormlite.dao.Dao;
@@ -31,7 +30,7 @@ public class UserFriendReadDao {
         }
     }
 
-    public static List<UserFriendKey> getAll(User user){
+    public List<UserFriendKey> getAll(User user){
         QueryBuilder<UserFriendKey, Integer> userFriendKeyIntegerQueryBuilder = userFriendDao.queryBuilder();
 
         try {
@@ -41,7 +40,6 @@ public class UserFriendReadDao {
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }
-
         return null;
     }
 }

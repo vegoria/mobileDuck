@@ -1,9 +1,6 @@
 package com.example.sylwia.mobileduck.db;
 
-import com.example.sylwia.mobileduck.db.dao.ItemDAO;
-import com.example.sylwia.mobileduck.db.dao.ShoppingListDAO;
-import com.example.sylwia.mobileduck.db.dao.UserFriendKeyDAO;
-import com.example.sylwia.mobileduck.db.dao.readDao.ReadDao;
+import com.example.sylwia.mobileduck.db.dao.readDao.ItemReadDao;
 import com.example.sylwia.mobileduck.db.dao.readDao.ShoppingListReadDao;
 import com.example.sylwia.mobileduck.db.dao.readDao.UserFriendReadDao;
 import com.example.sylwia.mobileduck.db.dao.readDao.UserReadDao;
@@ -27,13 +24,14 @@ import java.util.List;
 
 public class Manager {
 
-    private WriteDao<User> userWriteDao;
-    private WriteDao<Item> itemWriteDao;
-    private WriteDao<ShoppingList> shoppingListWriteDao;
+    private UserWriteDao userWriteDao;
+    private ItemWriteDao itemWriteDao;
+    private ShoppingListWriteDao shoppingListWriteDao;
     private UserFriendWriteDao userFriendWriteDao;
 
-    private ReadDao<User> userReadDao;
-    private ReadDao<ShoppingList> shoppingListReadDao;
+    private UserReadDao userReadDao;
+    private ItemReadDao itemReadDao;
+    private ShoppingListReadDao shoppingListReadDao;
     private UserFriendReadDao userFriendReadDao;
 
     public Manager(){
@@ -43,6 +41,7 @@ public class Manager {
         userFriendWriteDao = new UserFriendWriteDao();
 
         userReadDao = new UserReadDao();
+        itemReadDao = new ItemReadDao();
         shoppingListReadDao = new ShoppingListReadDao();
         userFriendReadDao = new UserFriendReadDao();
     }
@@ -90,25 +89,25 @@ public class Manager {
         return userReadDao.get(login);
     }
 
-    public static List<User> getUserFriends(String login){
-        List<UserFriendKey> userFriendKeys = UserFriendKeyDAO.getUserFriendKeys(getUser(login));
+    public  List<User> getUserFriends(String login){
+        List<UserFriendKey> userFriendKeys = userFriendReadDao.getAll(getUserByLogin(login));
         List<User> friends = new ArrayList<User>();
 
         for(UserFriendKey userFriendKey : userFriendKeys){
-            friends.add(getUser(userFriendKey.getFriendId()));
+            friends.add(getUserById(userFriendKey.getFriendId()));
         }
         return friends;
     }
 
     public ShoppingList getShoppingList(String shopListName, String userLogin){
-        return ShoppingListDAO.getShoppingList(shopListName, getUser(userLogin).getId());
+        return shoppingListReadDao.get(shopListName, getUserByLogin(userLogin).getId());
     }
 
-    public List<ShoppingList> getShoppingListsForSpecifiedUser(String userLogin){
-        return ShoppingListDAO.getShoppingListForSpecifiedUser(getUser(userLogin).getId());
+    public List<ShoppingList> getUserShoppingLists(String userLogin){
+        return shoppingListReadDao.getUserShoppingLists(getUserByLogin(userLogin).getId());
     }
 
-    public static List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
-        return ItemDAO.getItemsFromShoppingList(shoppingList);
+    public List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
+        return itemReadDao.getShoppingListItems(shoppingList);
     }
 }
