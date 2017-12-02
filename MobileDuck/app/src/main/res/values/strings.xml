@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MobileDuck</string>
+    <string name="login_input">Podaj nazwę użytkownika</string>
+    <string name="save_button">Zapisz</string>
+    <string name="preference_file_key">MobileDuckPreferences</string>
+    <string name="preference_user_login">MobileDuckLogin</string>
 </resources>
