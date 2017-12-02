@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +24,10 @@
             android:name=".DbSyncService"
             android:enabled="true"
             android:exported="true"
-            android:process=":SecondProcess"></service>
+            android:process=":SecondProcess" />
+
+        <activity android:name=".MyShopActivity"
+                  android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

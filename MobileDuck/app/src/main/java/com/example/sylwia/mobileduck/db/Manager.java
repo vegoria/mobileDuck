@@ -47,8 +47,8 @@ public class Manager {
 
     /* Write method (add, remove) */
 
-    public void addUser(String login){
-        userWriteDao.save(new User(login));
+    public boolean addUser(String login){
+        return userWriteDao.save(new User(login));
     }
 
     public void deleteUser(String login){

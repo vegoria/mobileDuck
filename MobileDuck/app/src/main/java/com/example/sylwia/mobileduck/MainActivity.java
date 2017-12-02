@@ -9,14 +9,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.Item;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
+
+import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
     Manager dataManager;
@@ -26,12 +30,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setButtonListener();
         dataManager = new Manager();
+        boolean userExist = checkIfUserExist();
+        if(userExist)
+        {
+            goToShopActivity();
+        }
+        else
+        {
+            setButtonListener();
+        }
 
 //        Thread thread = new Thread(new Runnable() {
 //
 //            @Override
 //            public void run() {
+
 //                try  {
+//                    ShoppingListReceiverTest test = new ShoppingListReceiverTest(getApplicationContext());
+
 //                    Manager manager = new Manager();
 //
 //                    manager.addUser("TestKamil");
@@ -69,21 +85,39 @@ public class MainActivity extends AppCompatActivity {
 //        thread.start();
     }
 
+    private boolean checkIfUserExist()
+    {
+        boolean userExist = false;
+
+        SharedPreferences sharedPref = getApplicationContext()
+                .getSharedPreferences(
+                        getString(R.string.preference_file_key),
+                        Context.MODE_PRIVATE);
+        String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+
+        if(userLogin != null)
+        {
+            userExist = true;
+        }
+
+        return userExist;
+    }
+
+    private void goToShopActivity()
+    {
+        Intent mainViewIntent = new Intent(getApplicationContext(), MyShopActivity.class);
+        startActivity(mainViewIntent);
+    }
+
     private void setButtonListener()
     {
         Button saveButton = (Button) findViewById(R.id.saveUserButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void run() {
-                try  {
 
-                    ShoppingListReceiverTest test = new ShoppingListReceiverTest(getApplicationContext());
-
-                    Manager manager = new Manager();
             public void onClick(View view) {
-                EditText userLoginInput = (EditText) findViewById(R.id.userLoginInput);
-                String userLogin = userLoginInput.getText().toString();
+                String userLogin = getUserLogin();
                 Boolean isUserInsertedToDatabase = addUserToDatabase(userLogin);
+
                 if (isUserInsertedToDatabase)
                 {
                     SharedPreferences sharedPref = getApplicationContext()
@@ -93,23 +127,25 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(getString(R.string.preference_user_login), userLogin).commit();
 
-                    Intent mainViewIntent = new Intent(new MainViewActivity.class);
-                    startActivity(mainViewIntent);
+                    goToShopActivity();
                 }
                 else
                 {
-
+                    Toast.makeText(getApplicationContext(), R.string.could_not_add_user, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    private String getUserLogin()
+    {
+        EditText userLoginInput = (EditText) findViewById(R.id.userLoginInput);
+        return userLoginInput.getText().toString();
+    }
+
     private boolean addUserToDatabase(String userLogin)
     {
-        boolean isUserInserted = false;
-        dataManager.addUser(userLogin);
-
-        return isUserInserted;
+         return dataManager.addUser(userLogin);
     }
 
 }
