@@ -98,6 +98,10 @@ public class Manager {
         return friends;
     }
 
+    public ShoppingList getShoppingList(long shoppingListId){
+        return  shoppingListReadDao.get(shoppingListId);
+    }
+
     public ShoppingList getShoppingList(String shopListName, String userLogin){
         return shoppingListReadDao.get(shopListName, getUserByLogin(userLogin).getId());
     }

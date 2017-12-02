@@ -1,5 +1,9 @@
 package com.example.sylwia.mobileduck;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.Item;
+import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         Button saveButton = (Button) findViewById(R.id.saveUserButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void run() {
+                try  {
+
+                    ShoppingListReceiverTest test = new ShoppingListReceiverTest(getApplicationContext());
+
+                    Manager manager = new Manager();
             public void onClick(View view) {
                 EditText userLoginInput = (EditText) findViewById(R.id.userLoginInput);
                 String userLogin = userLoginInput.getText().toString();
@@ -100,4 +111,5 @@ public class MainActivity extends AppCompatActivity {
 
         return isUserInserted;
     }
+
 }
