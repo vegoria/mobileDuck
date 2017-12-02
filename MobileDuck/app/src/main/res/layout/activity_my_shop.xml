@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/change_fragment_button"
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
 
     <Button
         android:id="@+id/add_list_button"
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"

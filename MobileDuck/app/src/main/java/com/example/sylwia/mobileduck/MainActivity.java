@@ -24,11 +24,15 @@ import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
     Manager dataManager;
+    Boolean isUserInsertedToDatabase;
+    User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        isUserInsertedToDatabase = false;
         dataManager = new Manager();
+        currentUser = null;
         boolean userExist = checkIfUserExist();
         if(userExist)
         {
@@ -43,17 +47,18 @@ public class MainActivity extends AppCompatActivity {
 //
 //            @Override
 //            public void run() {
-
+//
 //                try  {
 //                    ShoppingListReceiverTest test = new ShoppingListReceiverTest(getApplicationContext());
-
+//
 //                    Manager manager = new Manager();
 //
-//                    manager.addUser("TestKamil");
+//                    boolean test12 = manager.addUser("TestKamil");
 //                    manager.addUser("TestPawel");
 //                    manager.addUser("TestSylwia");
 //                    manager.addUser("TestDuck");
 //                    manager.addUser("TestMichal");
+//                    if (test12){ Toast.makeText(getApplicationContext(), "Haha", Toast.LENGTH_SHORT);}
 //
 //                    manager.addFriend("TestKamil", "TestDuck");
 //                    manager.addFriend("TestKamil", "TestMichal");
@@ -92,9 +97,26 @@ public class MainActivity extends AppCompatActivity {
                 .getSharedPreferences(
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
-        String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
-        User user = dataManager.getUserByLogin(userLogin);
-        if(user != null)
+        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                currentUser = dataManager.getUserByLogin(userLogin);
+            }
+
+        });
+        thread.start();
+        try
+        {
+            thread.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
+
+        if(currentUser != null)
         {
             userExist = true;
         }
@@ -115,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View view) {
                 String userLogin = getUserLogin();
-                Boolean isUserInsertedToDatabase = addUserToDatabase(userLogin);
+                addUserToDatabase(userLogin);
 
                 if (isUserInsertedToDatabase)
                 {
@@ -142,9 +164,24 @@ public class MainActivity extends AppCompatActivity {
         return userLoginInput.getText().toString();
     }
 
-    private boolean addUserToDatabase(String userLogin)
+    private void addUserToDatabase(final String userLogin)
     {
-         return dataManager.addUser(userLogin);
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                isUserInsertedToDatabase = dataManager.addUser(userLogin);
+            }
+
+        });
+        thread.start();
+        try
+        {
+            thread.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
     }
 
     @Override
@@ -152,10 +189,9 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onResume();
         boolean userExist = checkIfUserExist();
-        if (userExist) {
+        if (userExist)
+        {
             goToShopActivity();
-        } else {
-            setButtonListener();
         }
     }
 
