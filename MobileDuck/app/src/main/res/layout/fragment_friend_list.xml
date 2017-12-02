@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sylwia.mobileduck.FriendListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40sp"
+        android:layout_marginBottom="60sp"
+        android:textAlignment="center" />
+</FrameLayout>
