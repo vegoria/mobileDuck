@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
         String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
-
-        if(userLogin != null)
+        User user = dataManager.getUserByLogin(userLogin);
+        if(user != null)
         {
             userExist = true;
         }
@@ -146,6 +146,18 @@ public class MainActivity extends AppCompatActivity {
     private boolean addUserToDatabase(String userLogin)
     {
          return dataManager.addUser(userLogin);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        boolean userExist = checkIfUserExist();
+        if (userExist) {
+            goToShopActivity();
+        } else {
+            setButtonListener();
+        }
     }
 
 }
