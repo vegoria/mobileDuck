@@ -5,4 +5,7 @@
     <string name="preference_file_key">MobileDuckPreferences</string>
     <string name="preference_user_login">MobileDuckLogin</string>
     <string name="could_not_add_user">Nie można stworzyć użytkownika o podanym loginie</string>
+    <string name="change_fragment_button">Zmień widok</string>
+    <string name="add_list_button">Dodaj listę</string>
+    <string name="add_friend_button">Dodaj przyjaciela</string>
 </resources>
