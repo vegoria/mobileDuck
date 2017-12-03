@@ -73,6 +73,10 @@ public class Manager {
         itemWriteDao.save(
                 new Item(name, quantity, status, getShoppingList(shoppingListName, userLogin).getId()));
     }
+    public boolean addItem(String name, int quantity, int status, long userId, long shoppingListId){
+        return itemWriteDao.save(
+                new Item(name, quantity, status, shoppingListId));
+    }
 
     public void removeShoppingList(String shopListName, String userLogin){
         shoppingListWriteDao.delete(getShoppingList(shopListName, userLogin));
