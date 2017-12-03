@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class ShopListActivity extends AppCompatActivity {
     private ShopListAdapter adapter;
     private ListView itemsListView;
     private TextView listNameView;
+    private Button addItemButton;
     private IntentFilter filter;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -56,6 +58,7 @@ public class ShopListActivity extends AppCompatActivity {
         this.ownList = intent.getBooleanExtra("OwnList", true);
         itemsListView = (ListView)findViewById(R.id.shopListView);
         listNameView = (TextView)findViewById(R.id.shoplist_list_name);
+        addItemButton = (Button)findViewById(R.id.add_item_button);
         manager = new Manager();
 
         downloadShoppingList();
@@ -64,6 +67,9 @@ public class ShopListActivity extends AppCompatActivity {
         prepareReceiver();
 
         listNameView.setText(shoppingList.getName());
+        if(!ownList)
+            addItemButton.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
