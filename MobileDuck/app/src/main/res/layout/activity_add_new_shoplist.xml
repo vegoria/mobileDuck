@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sylwia.mobileduck.AddNewShoplistActivity">
+
+    <EditText
+        android:id="@+id/shopListEditText"
+        android:layout_width="367dp"
+        android:layout_height="58dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/write_name_of_new_shoplist"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <Button
+        android:id="@+id/addShoplistButton"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_shoplist"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="70dp" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="362dp"
+        android:layout_height="47dp"
+        android:text="@string/cancel"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="129dp" />
+</android.support.constraint.ConstraintLayout>

@@ -95,9 +95,11 @@ public class MyShopActivity extends AppCompatActivity {
     }
     private void setFriendsFragment()
     {
-        //TODO: add proper fragment name
-        /*getSupportFragmentManager().beginTransaction()
+       /* //TODO: add proper fragment name
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragments_holder, FriendsListFragment)
+                .addToBackStack().commit();
+
                 .addToBackStack().commit();*/
     }
 }
