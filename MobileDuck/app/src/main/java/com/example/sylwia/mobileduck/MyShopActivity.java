@@ -13,7 +13,7 @@ import static android.app.PendingIntent.getActivity;
 
 public class MyShopActivity extends AppCompatActivity {
 
-    /*@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shop);
@@ -30,7 +30,7 @@ public class MyShopActivity extends AppCompatActivity {
     private void setStartupFragment()
     {
         //TODO: add proper fragment name
-        getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, ShoppingListFragment).commit();
+        //getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, ShoppingListFragment).commit();
     }
 
     private void setButtonsListeners()
@@ -47,8 +47,8 @@ public class MyShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: add propoer activity name
-                Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
-                startActivity(addListIntent);
+                //Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
+                //startActivity(addListIntent);
             }
         });
     }
@@ -60,8 +60,8 @@ public class MyShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: add propoer activity name
-                Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
-                startActivity(addListIntent);
+                //Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
+                //startActivity(addListIntent);
             }
         });
     }
@@ -74,14 +74,14 @@ public class MyShopActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Fragment f = getFragmentManager().findFragmentById(R.id.fragments_holder);
                 //TODO: set name of fragment
-                if(f instanceof ShoppingListFragment)
+                /*if(f instanceof ShoppingListFragment)
                 {
                   setFriendsFragment();
                 }
                 else
                 {
                     setShoppingListFragment();
-                }
+                }*/
             }
         });
     }
@@ -89,15 +89,17 @@ public class MyShopActivity extends AppCompatActivity {
     private void setShoppingListFragment()
     {
         //TODO: add proper fragment name
-        getSupportFragmentManager().beginTransaction()
+        /*getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragments_holder, ShoppingListFragment)
-                .addToBackStack().commit();
+                .addToBackStack().commit();*/
     }
     private void setFriendsFragment()
     {
-        //TODO: add proper fragment name
+       /* //TODO: add proper fragment name
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragments_holder, FriendsListFragment)
                 .addToBackStack().commit();
-    }*/
+
+                .addToBackStack().commit();*/
+    }
 }

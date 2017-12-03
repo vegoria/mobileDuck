@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/shoplist_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Name"
+        android:longClickable="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="24dp"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:id="@+id/shoplist_item_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:text="0"
+        android:longClickable="true"
+        android:textSize="24dp"
+        android:textColor="@android:color/black" />
+
+    <CheckBox
+        android:id="@+id/shoplist_item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:checked="false"
+        android:longClickable="false"
+        android:onClick="updateItemHandler"
+        android:textColor="@android:color/black"/>
+
+</RelativeLayout>
