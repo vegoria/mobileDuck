@@ -2,9 +2,10 @@ package com.example.sylwia.mobileduck;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.sylwia.mobileduck.db.Manager;
+import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
+
+import java.util.List;
 
 
 /**
@@ -39,7 +43,8 @@ public class ListsListFragment extends Fragment {
     private ListView groupView;
     private Manager dataManager;
     private User user;
-
+    private List<ShoppingList> userShoppingList;
+    private  ArrayAdapter<ShoppingList> adapter;
 
     public ListsListFragment() {
         // Required empty public constructor
@@ -70,16 +75,22 @@ public class ListsListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        // dataManager=new Manager(getActivity().get);
-        //  user=dataManager.getUserByLogin(Long.parseLong().toString()));
-        groupView = (ListView) getView().findViewById(R.id.friendList);
-        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1,
-                user.getGroups());//??
+
+        dataManager=new Manager();
+        SharedPreferences sharedPref = getActivity().getApplicationContext()
+                .getSharedPreferences(
+                        getString(R.string.preference_file_key),
+                        Context.MODE_PRIVATE);
+        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+
+        user=dataManager.getUserByLogin(userLogin);
+        groupView = (ListView) findViewById(R.id.shoppingList); //extract to method
+        adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1,userShoppingList
+                );
         groupView.setAdapter(adapter);
         setListViewSettings();
     }
-
 
     //add checkbox
     private void setListViewSettings() {
@@ -91,17 +102,29 @@ public class ListsListFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final User selectedUser = (User) groupView.getItemAtPosition(position);
-                AlertDialog.Builder alert = new AlertDialog.Builder(ShowStudentListActivity.this);//??
-                alert.setTitle("Delete Friend");
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
+                alert.setTitle("Delete shopping list?");
                 alert.setMessage("Are you sure?");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dial, int i) {
-                        dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
-                        //  user = dataManager.getUserFriends(selectedUser.getLogin());
-                        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
-                                android.R.layout.simple_list_item_1,
-                                user.getGroups());//??
+                        Thread thread = new Thread(new Runnable()
+                        {
+                            @Override
+                            public void run() {
+
+                                dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
+                                userShoppingList = dataManager.getUserShoppingLists(selectedUser.getLogin());
+                                adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                                        android.R.layout.simple_list_item_1,
+                                        userShoppingList);
+                            }});
+                        thread.start();
+                        try{
+                            thread.join();
+                        }
+                        catch (InterruptedException e){}
+
                         groupView.setAdapter(adapter);
                     }
                 });
