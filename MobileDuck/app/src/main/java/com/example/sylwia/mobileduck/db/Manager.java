@@ -117,4 +117,9 @@ public class Manager {
     public List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
         return itemReadDao.getShoppingListItems(shoppingList);
     }
+
+    public void updateItem(Item item)
+    {
+        // TODO Wazne!
+    }
 }

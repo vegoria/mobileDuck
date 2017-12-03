@@ -33,7 +33,7 @@ public class DbSyncService extends Service
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId)
     {
-        listId = intent.getIntExtra("list", 0);
+        listId = intent.getLongExtra("list", 0);
         thread = new Thread(new Runnable() {
             @Override
             public void run()
