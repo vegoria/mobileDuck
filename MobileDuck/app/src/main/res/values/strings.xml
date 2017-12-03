@@ -10,4 +10,8 @@
     <string name="add_friend_button">Dodaj przyjaciela</string>
     <string name="number_of_items">Liczba sztuk</string>
     <string name="item_name">Nazwa przedmiotu</string>
+    <string name="add_friend">Dodaj przyjaciela</string>
+    <string name="cancel">Anuluj</string>
+    <string name="write_name_of_new_shoplist">Wpisz nazwę nowej listy</string>
+    <string name="add_shoplist">Dodaj listę</string>
 </resources>

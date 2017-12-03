@@ -30,7 +30,9 @@
         <activity
             android:name=".MyShopActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NewItemActivity"></activity>
+        <activity android:name=".NewItemActivity" />
+        <activity android:name=".AddNewFriendActivity" />
+        <activity android:name=".AddNewShoplistActivity"></activity>
     </application>
 
 </manifest>

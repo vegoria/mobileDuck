@@ -13,7 +13,7 @@ import static android.app.PendingIntent.getActivity;
 
 public class MyShopActivity extends AppCompatActivity {
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shop);
@@ -99,5 +99,5 @@ public class MyShopActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragments_holder, FriendsListFragment)
                 .addToBackStack().commit();
-    }
+    }*/
 }
