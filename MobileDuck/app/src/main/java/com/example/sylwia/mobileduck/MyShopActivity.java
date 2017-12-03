@@ -73,6 +73,7 @@ public class MyShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Fragment f = getFragmentManager().findFragmentById(R.id.fragments_holder);
+                //TODO: set name of fragment
                 if(f instanceof ShoppingListFragment)
                 {
                   setFriendsFragment();
