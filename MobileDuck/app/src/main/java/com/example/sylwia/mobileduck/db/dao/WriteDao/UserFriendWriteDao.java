@@ -29,16 +29,18 @@ public class UserFriendWriteDao {
         }
     }
 
-    public void save(UserFriendKey userFriendKey) {
+    public boolean save(UserFriendKey userFriendKey) {
         if(userFriendKey == null) {
-            return;
+            return false;
         }
 
         try {
             userFriendDao.create(userFriendKey);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 
     public void deleteFriend(User user, User friend) {

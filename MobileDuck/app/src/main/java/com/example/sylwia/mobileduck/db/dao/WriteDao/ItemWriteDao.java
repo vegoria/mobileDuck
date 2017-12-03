@@ -29,16 +29,18 @@ public class ItemWriteDao implements WriteDao<Item> {
     }
 
     @Override
-    public void save(Item item) {
+    public boolean save(Item item) {
         if(item == null) {
-            return;
+            return false;
         }
         try {
             itemDao.create(item);
         }
         catch(java.sql.SQLException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override

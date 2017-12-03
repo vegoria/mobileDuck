@@ -38,7 +38,7 @@ public class FriendListFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListView groupView;
     private Manager dataManager;
-   // private Student student;
+    private User user;
 
     public FriendListFragment() {
         // Required empty public constructor
@@ -69,37 +69,44 @@ public class FriendListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+     // dataManager=new Manager(getActivity().get);
+      //  user=dataManager.getUserByLogin(Long.parseLong().toString()));
+        groupView = (ListView) getView().findViewById(R.id.friendList);
+        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1,
+                user.getGroups());//??
+        groupView.setAdapter(adapter);
+        setListViewSettings();
+
     }
 
-    private void setListViewSettings()
-    {
-        groupView = (ListView) findViewById(R.id.friendList);
+    private void setListViewSettings() {
+        groupView = (ListView) getView().findViewById(R.id.friendList);
 
         groupView.setClickable(true);
 
-        groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3)
-            {
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final User selectedUser = (User) groupView.getItemAtPosition(position);
-                AlertDialog.Builder alert= new  AlertDialog.Builder(ShowStudentListActivity.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(ShowStudentListActivity.this);//??
                 alert.setTitle("Delete Friend");
                 alert.setMessage("Are you sure?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dial,int i){
-                        dataManager.removeFriend(new StudentGroup(0,student.getId(),selectedGroup.getId()));
-                        student=dataManager.getStudent(student.getId());
-                        ArrayAdapter<User> adapter=new ArrayAdapter<Group>(getApplicationContext(),
+                    public void onClick(DialogInterface dial, int i) {
+                        dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
+                      //  user = dataManager.getUserFriends(selectedUser.getLogin());
+                        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
                                 android.R.layout.simple_list_item_1,
-                                student.getGroups());
+                                user.getGroups());//??
                         groupView.setAdapter(adapter);
                     }
                 });
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dial,int i){
+                    public void onClick(DialogInterface dial, int i) {
                         dial.dismiss();
                     }
                 });
@@ -107,6 +114,7 @@ public class FriendListFragment extends Fragment {
                 return true;
             }
         });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

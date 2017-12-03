@@ -1,12 +1,20 @@
 package com.example.sylwia.mobileduck;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.sylwia.mobileduck.db.Manager;
+import com.example.sylwia.mobileduck.db.tables.User;
 
 
 /**
@@ -28,6 +36,10 @@ public class ListsListFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ListView groupView;
+    private Manager dataManager;
+    private User user;
+
 
     public ListsListFragment() {
         // Required empty public constructor
@@ -58,7 +70,53 @@ public class ListsListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        // dataManager=new Manager(getActivity().get);
+        //  user=dataManager.getUserByLogin(Long.parseLong().toString()));
+        groupView = (ListView) getView().findViewById(R.id.friendList);
+        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1,
+                user.getGroups());//??
+        groupView.setAdapter(adapter);
+        setListViewSettings();
     }
+
+
+    //add checkbox
+    private void setListViewSettings() {
+        groupView = (ListView) getView().findViewById(R.id.friendList);
+
+        groupView.setClickable(true);
+
+        groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                final User selectedUser = (User) groupView.getItemAtPosition(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(ShowStudentListActivity.this);//??
+                alert.setTitle("Delete Friend");
+                alert.setMessage("Are you sure?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dial, int i) {
+                        dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
+                        //  user = dataManager.getUserFriends(selectedUser.getLogin());
+                        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
+                                android.R.layout.simple_list_item_1,
+                                user.getGroups());//??
+                        groupView.setAdapter(adapter);
+                    }
+                });
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dial, int i) {
+                        dial.dismiss();
+                    }
+                });
+                alert.show();
+                return true;
+            }
+        });
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

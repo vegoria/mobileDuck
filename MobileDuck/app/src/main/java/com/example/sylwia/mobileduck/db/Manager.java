@@ -47,8 +47,8 @@ public class Manager {
 
     /* Write method (add, remove) */
 
-    public void addUser(String login){
-        userWriteDao.save(new User(login));
+    public boolean addUser(String login){
+        return userWriteDao.save(new User(login));
     }
 
     public void deleteUser(String login){
@@ -73,6 +73,10 @@ public class Manager {
         itemWriteDao.save(
                 new Item(name, quantity, status, getShoppingList(shoppingListName, userLogin).getId()));
     }
+    public boolean addItem(String name, int quantity, int status, long userId, long shoppingListId){
+        return itemWriteDao.save(
+                new Item(name, quantity, status, shoppingListId));
+    }
 
     public void removeShoppingList(String shopListName, String userLogin){
         shoppingListWriteDao.delete(getShoppingList(shopListName, userLogin));
@@ -96,6 +100,10 @@ public class Manager {
             friends.add(getUserById(userFriendKey.getFriendId()));
         }
         return friends;
+    }
+
+    public ShoppingList getShoppingList(long shoppingListId){
+        return  shoppingListReadDao.get(shoppingListId);
     }
 
     public ShoppingList getShoppingList(String shopListName, String userLogin){

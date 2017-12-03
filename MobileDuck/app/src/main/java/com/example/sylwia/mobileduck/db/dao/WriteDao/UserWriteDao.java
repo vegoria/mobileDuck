@@ -29,9 +29,9 @@ public class UserWriteDao implements WriteDao<User> {
     }
 
     @Override
-    public void save(User user) {
+    public boolean save(User user) {
         if(user == null) {
-            return;
+            return false;
         }
 
         try {
@@ -39,7 +39,9 @@ public class UserWriteDao implements WriteDao<User> {
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override

@@ -30,9 +30,9 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
     }
 
     @Override
-    public void save(ShoppingList shoppingList) {
+    public boolean save(ShoppingList shoppingList) {
         if(shoppingList == null) {
-            return;
+            return false;
         }
 
         try {
@@ -40,7 +40,9 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
         }
         catch(java.sql.SQLException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override
