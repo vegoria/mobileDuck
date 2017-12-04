@@ -82,6 +82,10 @@ public class Manager {
         shoppingListWriteDao.delete(getShoppingList(shopListName, userLogin));
     }
 
+    public void updateShoppingList(ShoppingList shoppingList) {
+        shoppingListWriteDao.update(shoppingList);
+    }
+
     /* read methods (get) */
 
     public User getUserById(long userId){
