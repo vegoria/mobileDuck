@@ -1,6 +1,7 @@
 package com.example.sylwia.mobileduck;
 
-import android.app.Fragment;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 
 import static android.app.PendingIntent.getActivity;
 
-public class MyShopActivity extends AppCompatActivity {
+public class MyShopActivity extends AppCompatActivity implements ListsListFragment.OnFragmentInteractionListener, FriendListFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class MyShopActivity extends AppCompatActivity {
     private void setStartupFragment()
     {
         //TODO: add proper fragment name
-        //getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, ShoppingListFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, new ListsListFragment()).commit();
     }
 
     private void setButtonsListeners()
@@ -42,64 +43,65 @@ public class MyShopActivity extends AppCompatActivity {
 
     private void setAddListListener()
     {
-        Button addListButton = (Button) findViewById(R.id.add_list_button);
-        addListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        Button addListButton = (Button) findViewById(R.id.add_list_button);
+//        addListButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
                 //TODO: add propoer activity name
-                //Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
-                //startActivity(addListIntent);
-            }
-        });
+          //      Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
+            //    startActivity(addListIntent);
+//            }
+//        });
     }
 
     private void setAddFriendListener()
     {
-        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
-        addListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: add propoer activity name
-                //Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
-                //startActivity(addListIntent);
-            }
-        });
+//        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
+//        addListButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //TODO: add propoer activity name
+           //     Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
+            //    startActivity(addListIntent);
+//            }
+//        });
     }
 
     private void setChangeFragmentListener()
     {
-        Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
+        /*Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
         switchFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment f = getFragmentManager().findFragmentById(R.id.fragments_holder);
-                //TODO: set name of fragment
-                /*if(f instanceof ShoppingListFragment)
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragments_holder);
+
+                if(f instanceof ListsListFragment)
                 {
                   setFriendsFragment();
                 }
                 else
                 {
                     setShoppingListFragment();
-                }*/
+                }
             }
-        });
+        });*/
     }
 
     private void setShoppingListFragment()
     {
-        //TODO: add proper fragment name
-        /*getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragments_holder, ShoppingListFragment)
-                .addToBackStack().commit();*/
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragments_holder, new ListsListFragment())
+                .addToBackStack(null).commit();
     }
     private void setFriendsFragment()
     {
-       /* //TODO: add proper fragment name
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragments_holder, FriendsListFragment)
-                .addToBackStack().commit();
+                .replace(R.id.fragments_holder, new FriendListFragment())
+                .addToBackStack(null).commit();
+    }
 
-                .addToBackStack().commit();*/
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">MobileDuck</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="login_input">Podaj nazwę użytkownika</string>
     <string name="save_button">Zapisz</string>
     <string name="preference_file_key">MobileDuckPreferences</string>
@@ -14,4 +19,5 @@
     <string name="cancel">Anuluj</string>
     <string name="write_name_of_new_shoplist">Wpisz nazwę nowej listy</string>
     <string name="add_shoplist">Dodaj listę</string>
+
 </resources>
