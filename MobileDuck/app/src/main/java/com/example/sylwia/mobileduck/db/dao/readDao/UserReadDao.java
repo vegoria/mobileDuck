@@ -22,9 +22,8 @@ public class UserReadDao implements ReadDao<User> {
     private static Dao<User, Integer> userDao;
 
     public UserReadDao() {
-        Connection.getInstance();
         try {
-            userDao = DaoManager.createDao(Connection.getConnectionSource(), User.class);
+            userDao = DaoManager.createDao(new Connection().getConnectionSource(), User.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

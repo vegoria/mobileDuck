@@ -1,6 +1,7 @@
 package com.example.sylwia.mobileduck;
 
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,9 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shop);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         if(findViewById(R.id.fragments_holder) != null)
         {
             if(savedInstanceState == null)

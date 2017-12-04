@@ -21,9 +21,8 @@ public class UserFriendReadDao {
     private static Dao<UserFriendKey, Integer> userFriendDao;
 
     public UserFriendReadDao() {
-        Connection.getInstance();
         try {
-            userFriendDao = DaoManager.createDao(Connection.getConnectionSource(), UserFriendKey.class);
+            userFriendDao = DaoManager.createDao(new Connection().getConnectionSource(), UserFriendKey.class);
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

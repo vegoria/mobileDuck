@@ -19,9 +19,8 @@ public class ItemWriteDao implements WriteDao<Item> {
     private static ItemWriteDao instance;
 
     public ItemWriteDao() {
-        Connection.getInstance();
         try {
-            itemDao = DaoManager.createDao(Connection.getConnectionSource(), Item.class);
+            itemDao = DaoManager.createDao(new Connection().getConnectionSource(), Item.class);
         }
         catch(java.sql.SQLException e) {
             Log.e(TAG, e.getMessage());

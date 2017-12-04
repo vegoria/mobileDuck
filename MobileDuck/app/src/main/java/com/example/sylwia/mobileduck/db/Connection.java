@@ -22,10 +22,9 @@ public class Connection {
 
     private static final String dbUrl = "jdbc:mysql://" + dbHost +":"+ dbPort +"/" + dbName + "?user=" + dbUser + "&password=" + dbPassword + "&character_set_client=UTF-8&character_set_database=UTF-8&character_set_results=UTF8&character_set_server=UTF-8&character_set_system=UTF-8";
 
-    private static ConnectionSource connectionSource;
-    private static Connection instance;
+    private ConnectionSource connectionSource;
 
-    private Connection(){
+    public Connection(){
         Log.i(TAG, "Connecting to DB");
 
         try {
@@ -37,14 +36,7 @@ public class Connection {
         Log.i(TAG, "Connected to DB");
     }
 
-    public static Connection getInstance(){
-        if(instance == null){
-            instance = new Connection();
-        }
-        return instance;
-    }
-
-    public static ConnectionSource getConnectionSource(){
+    public ConnectionSource getConnectionSource(){
         return connectionSource;
     }
 

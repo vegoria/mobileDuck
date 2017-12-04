@@ -22,6 +22,7 @@
         </activity>
 
         <service
+
             android:name=".DbSyncService"
             android:enabled="true"
             android:exported="true"
@@ -35,6 +36,7 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".AddNewFriendActivity" />
         <activity android:name=".AddNewShoplistActivity"></activity>
+
     </application>
 
 </manifest>
