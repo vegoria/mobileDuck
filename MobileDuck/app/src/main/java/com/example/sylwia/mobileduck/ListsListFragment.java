@@ -21,6 +21,7 @@ import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -137,7 +138,7 @@ public class ListsListFragment extends Fragment {
                         ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
                         Intent newActivityIntent=new Intent(getActivity().getApplicationContext(),
                                 ShopListActivity.class).putExtra("ListId",
-                                selectedList.getId()).putExtra("ShoppingList", String.valueOf(selectedList.getId()));
+                                selectedList.getId()).putExtra("OwnList", isOwnList(selectedList));
                         startActivity(newActivityIntent);
 
                     }
@@ -163,6 +164,32 @@ public class ListsListFragment extends Fragment {
 
         thread.start();
 
+    }
+
+    boolean result = false;
+    private boolean isOwnList(final ShoppingList list)
+    {
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                List<ShoppingList> userList = dataManager.getUserShoppingLists(user.getId());
+                for (ShoppingList singleList: userList)
+                {
+                    if(singleList.getId() == list.getId())
+                        result = true;
+                }
+            }
+        });
+        thread.start();
+        try
+        {
+            thread.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
+        return result;
     }
 
 
