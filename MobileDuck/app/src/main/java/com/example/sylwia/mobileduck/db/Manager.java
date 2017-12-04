@@ -117,6 +117,9 @@ public class Manager {
     public List<ShoppingList> getUserShoppingLists(String userLogin){
         return shoppingListReadDao.getUserShoppingLists(getUserByLogin(userLogin).getId());
     }
+    public List<ShoppingList> getUserShoppingLists(long userId){
+        return shoppingListReadDao.getUserShoppingLists(userId);
+    }
 
     public List<Item> getItemsFromShoppingList(ShoppingList shoppingList){
         return itemReadDao.getShoppingListItems(shoppingList);
