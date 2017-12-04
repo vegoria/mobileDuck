@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -83,18 +84,52 @@ public class ListsListFragment extends Fragment {
                         Context.MODE_PRIVATE);
         final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
 
-        user=dataManager.getUserByLogin(userLogin);
-        groupView = (ListView) findViewById(R.id.shoppingList); //extract to method
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                user=dataManager.getUserByLogin(userLogin);
+            }
+
+        });
+        thread.start();
+        try
+        {
+            thread.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
+        Thread thread2 = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                userShoppingList = dataManager.getUserShoppingLists(userLogin);
+            }
+
+        });
+        thread2.start();
+        try
+        {
+            thread2.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
+        //user=dataManager.getUserByLogin(userLogin);
+        /*View gowno = getView();
+        groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1,userShoppingList
-                );
+        );
         groupView.setAdapter(adapter);
-        setListViewSettings();
+        setListViewSettings();*/
     }
 
     //add checkbox
     private void setListViewSettings() {
-        groupView = (ListView) getView().findViewById(R.id.friendList);
+        if(getView() != null)
+            groupView = (ListView) getView().findViewById(R.id.shoppingList);
 
         groupView.setClickable(true);
 
@@ -146,6 +181,19 @@ public class ListsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lists_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setListViewSettings();
+        View gowno = getView();
+        groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
+        adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1,userShoppingList
+        );
+        groupView.setAdapter(adapter);
+        //
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -69,7 +69,7 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
 
     private void setChangeFragmentListener()
     {
-        Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
+        /*Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
         switchFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +84,7 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
                     setShoppingListFragment();
                 }
             }
-        });
+        });*/
     }
 
     private void setShoppingListFragment()

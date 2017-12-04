@@ -71,4 +71,5 @@ public class ShoppingList {
     public void setOwner(int owner) {
         this.owner = owner;
     }
+
 }

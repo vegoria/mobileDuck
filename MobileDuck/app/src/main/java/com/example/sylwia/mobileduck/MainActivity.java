@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 .getSharedPreferences(
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
-        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), getUserLogin());
+
 
         Thread thread = new Thread(new Runnable()
         {
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 String userLogin = getUserLogin();
                 addUserToDatabase(userLogin);
 
-                if (isUserInsertedToDatabase)
+                if (isUserInsertedToDatabase || checkIfUserExist())
                 {
                     SharedPreferences sharedPref = getApplicationContext()
                             .getSharedPreferences(
