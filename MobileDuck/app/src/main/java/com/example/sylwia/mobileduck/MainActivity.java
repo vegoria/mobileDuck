@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         boolean userExist = checkIfUserExist();
         if (userExist)
         {
-            goToShopActivity();
+            finish();
         }
     }
 
