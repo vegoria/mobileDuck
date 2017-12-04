@@ -61,7 +61,6 @@ public class ShopListActivity extends AppCompatActivity {
         addItemButton = (Button)findViewById(R.id.add_item_button);
         manager = new Manager();
 
-        downloadShoppingList();
         downloadItems();
         populateList();
         prepareReceiver();
@@ -79,33 +78,13 @@ public class ShopListActivity extends AppCompatActivity {
         this.unregisterReceiver(receiver);
     }
 
-    private void downloadShoppingList()
-    {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run(){
-                shoppingList = manager.getShoppingList(listId);
-            }
-
-        });
-        thread.start();
-        try
-        {
-            thread.join();
-        }
-        catch(InterruptedException e)
-        {
-            Toast.makeText(this, "Cannot download shopping list", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void downloadItems()
     {
         final Thread thread = new Thread(new Runnable()
         {
             @Override
             public void run(){
+                shoppingList = manager.getShoppingList(listId);
                 itemsList = manager.getItemsFromShoppingList(shoppingList);
             }
 

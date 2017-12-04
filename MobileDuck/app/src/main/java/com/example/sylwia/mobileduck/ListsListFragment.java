@@ -2,6 +2,7 @@ package com.example.sylwia.mobileduck;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -119,50 +120,72 @@ public class ListsListFragment extends Fragment {
 
     //add checkbox
     private void setListViewSettings() {
-        if(getView() != null)
-            groupView = (ListView) getView().findViewById(R.id.shoppingList);
+                Thread thread = new Thread(new Runnable() {
 
-        groupView.setClickable(true);
-
-        groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                final ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
-                alert.setTitle("Delete shopping list?");
-                alert.setMessage("Are you sure?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dial, int i) {
-                        Thread thread = new Thread(new Runnable()
-                        {
-                            @Override
-                            public void run() {
-                                dataManager.removeShoppingList(selectedList.getName(),user.getLogin());
-                                userShoppingList = dataManager.getUserShoppingLists(user.getLogin());
-                                adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                                        R.layout.row_shoplist_item,
-                                        userShoppingList);
-                            }});
-                        thread.start();
-                        try{
-                            thread.join();
-                        }
-                        catch (InterruptedException e){}
+            public void run() {
+                //if(getView() != null)
+                //    groupView = (ListView) getView().findViewById(R.id.shoppingList);
 
-                        groupView.setAdapter(adapter);
-                    }
-                });
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                groupView.setClickable(true);
+                groupView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dial, int i) {
-                        dial.dismiss();
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+                    {
+                        ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
+                        Intent newActivityIntent=new Intent(getActivity().getApplicationContext(),
+                                ShopListActivity.class).putExtra("ListId",
+                                selectedList.getId()).putExtra("ShoppingList", String.valueOf(selectedList.getId()));
+                        startActivity(newActivityIntent);
+
                     }
                 });
-                alert.show();
-                return true;
+
+                groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                        final ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
+                        alert.setTitle("Delete shopping list?");
+                        alert.setMessage("Are you sure?");
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dial, int i) {
+                                Thread thread = new Thread(new Runnable()
+                                {
+                                    @Override
+                                    public void run() {
+                                        dataManager.removeShoppingList(selectedList.getName(),user.getLogin());
+                                        userShoppingList = dataManager.getUserShoppingLists(user.getLogin());
+                                        adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                                                R.layout.row_shoplist_item,
+                                                userShoppingList);
+                                    }});
+                                thread.start();
+                                try{
+                                    thread.join();
+                                }
+                                catch (InterruptedException e){}
+
+                                groupView.setAdapter(adapter);
+                            }
+                        });
+                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dial, int i) {
+                                dial.dismiss();
+                            }
+                        });
+                        //alert.show();
+                        return true;
+                    }
+                });
             }
         });
+
+        thread.start();
+
     }
 
 
@@ -176,12 +199,12 @@ public class ListsListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setListViewSettings();
         groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                 R.layout.row_shoplist_item,userShoppingList
         );
         groupView.setAdapter(adapter);
+        setListViewSettings();
 
     }
 

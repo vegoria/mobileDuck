@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(mainViewIntent);
 
         // TODO delete (only test)
-        Intent mainViewIntent = new Intent(getApplicationContext(), AddNewShoplistActivity.class);
+        Intent mainViewIntent = new Intent(getApplicationContext(), MyShopActivity.class);
         /*mainViewIntent.putExtra("ListId", (long)81); // ID listy - musi byc rzutowana na long!
         mainViewIntent.putExtra("OwnList", true); // Czy lista wlasna (chodzi o widocznosc przycisku dodawania itemu)*/
         startActivity(mainViewIntent);
