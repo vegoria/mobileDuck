@@ -36,7 +36,6 @@
         android:layout_alignParentRight="true"
         android:checked="false"
         android:longClickable="false"
-        android:onClick="updateItemHandler"
         android:textColor="@android:color/black"/>
 
 </RelativeLayout>
