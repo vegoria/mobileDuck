@@ -34,7 +34,6 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
 
     private void setStartupFragment()
     {
-        //TODO: add proper fragment name
         getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, new ListsListFragment()).commit();
     }
 
@@ -47,28 +46,26 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
 
     private void setAddListListener()
     {
-//        Button addListButton = (Button) findViewById(R.id.add_list_button);
-//        addListButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-                //TODO: add propoer activity name
-          //      Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
-            //    startActivity(addListIntent);
-//            }
-//        });
+        Button addListButton = (Button) findViewById(R.id.add_list_button);
+        addListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addListIntent = new Intent(getApplicationContext(), AddNewShoplistActivity.class);
+                startActivity(addListIntent);
+            }
+        });
     }
 
     private void setAddFriendListener()
     {
-//        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
-//        addListButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO: add propoer activity name
-           //     Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
-            //    startActivity(addListIntent);
-//            }
-//        });
+        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
+        addListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addListIntent = new Intent(getApplicationContext(), AddNewFriendActivity.class);
+                startActivity(addListIntent);
+            }
+        });
     }
 
     private void setChangeFragmentListener()
