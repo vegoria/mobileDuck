@@ -127,7 +127,7 @@ public class Manager {
 
     public void updateItem(Item item)
     {
-        // TODO Wazne!
+        itemWriteDao.update(item);
     }
 
     public List<User> getAllUsers(){
