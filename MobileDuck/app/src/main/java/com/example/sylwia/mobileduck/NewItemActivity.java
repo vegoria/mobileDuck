@@ -83,6 +83,7 @@ public class NewItemActivity extends AppCompatActivity {
                 public void run() {
                     Date date = new Date();
                     shoppingList.setModificationDate(date);
+                    shoppingList.setName(shoppingList.getName().replace("[^a-zA-Z0-9]", ""));
                     dataManager.updateShoppingList(shoppingList);
                 }
             });
