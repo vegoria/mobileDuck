@@ -10,6 +10,10 @@ import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class NewItemActivity extends AppCompatActivity {
 
     Manager dataManager;
@@ -74,6 +78,23 @@ public class NewItemActivity extends AppCompatActivity {
         if(itemAdded)
         {
             Toast.makeText(this, itemName + " dodano do listy zakupów", Toast.LENGTH_SHORT).show();
+            Thread newThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    itemAdded = dataManager.addItem(itemName, numberOfItems, 0, user.getId(), shoppingList.getId());
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    Date date = new Date();
+                    shoppingList.setModificationDate(date);
+                    dataManager.updateShoppingList(shoppingList);
+                }
+            });
+            newThread.start();
+
+            try {
+                newThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             finish();
         }
         else
