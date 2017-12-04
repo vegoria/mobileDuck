@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.sylwia.mobileduck.db.Manager;
+import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
 
 import java.util.List;
@@ -81,18 +83,43 @@ public class FriendListFragment extends Fragment {
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
         final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
-        user=dataManager.getUserByLogin(userLogin);
-        groupView = (ListView) getView().findViewById(R.id.friendList);
-        ArrayAdapter<User> adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1,
-                userList);
-        groupView.setAdapter(adapter);
-        setListViewSettings();
 
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run(){
+                user=dataManager.getUserByLogin(userLogin);
+            }
+
+        });
+        thread.start();
+        try
+        {
+            thread.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
+        Thread thread2 = new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                userList = dataManager.getUserFriends(userLogin);
+            }
+        });
+        thread2.start();
+        try
+        {
+            thread2.join();
+        }
+        catch(InterruptedException e)
+        {
+        }
     }
 
     private void setListViewSettings() {
-        groupView = (ListView) getView().findViewById(R.id.friendList);
+        if(getView() != null)
+            groupView = (ListView) getView().findViewById(R.id.friendList);
 
         groupView.setClickable(true);
 
@@ -114,7 +141,7 @@ public class FriendListFragment extends Fragment {
                                 dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
                                 userList = dataManager.getUserFriends(selectedUser.getLogin());
                                 adapter = new ArrayAdapter<User>(getActivity().getApplicationContext(),
-                                        android.R.layout.simple_list_item_1,
+                                        R.layout.row_shoplist_item,
                                         userList);
                             }});
                         try{
@@ -142,6 +169,18 @@ public class FriendListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_friend_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setListViewSettings();
+        groupView = (ListView) getView().findViewById(R.id.friendList); //extract to method
+        adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
+                R.layout.row_shoplist_item,userList
+        );
+        groupView.setAdapter(adapter);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

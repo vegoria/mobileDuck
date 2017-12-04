@@ -72,4 +72,8 @@ public class ShoppingList {
         this.owner = owner;
     }
 
+    @Override
+    public String toString(){
+        return getName();
+    }
 }

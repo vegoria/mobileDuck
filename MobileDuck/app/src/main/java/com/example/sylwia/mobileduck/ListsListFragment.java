@@ -106,7 +106,6 @@ public class ListsListFragment extends Fragment {
             public void run(){
                 userShoppingList = dataManager.getUserShoppingLists(userLogin);
             }
-
         });
         thread2.start();
         try
@@ -116,14 +115,6 @@ public class ListsListFragment extends Fragment {
         catch(InterruptedException e)
         {
         }
-        //user=dataManager.getUserByLogin(userLogin);
-        /*View gowno = getView();
-        groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
-        adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1,userShoppingList
-        );
-        groupView.setAdapter(adapter);
-        setListViewSettings();*/
     }
 
     //add checkbox
@@ -136,7 +127,7 @@ public class ListsListFragment extends Fragment {
         groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                final User selectedUser = (User) groupView.getItemAtPosition(position);
+                final ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
                 alert.setTitle("Delete shopping list?");
                 alert.setMessage("Are you sure?");
@@ -147,11 +138,10 @@ public class ListsListFragment extends Fragment {
                         {
                             @Override
                             public void run() {
-
-                                dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
-                                userShoppingList = dataManager.getUserShoppingLists(selectedUser.getLogin());
+                                dataManager.removeShoppingList(selectedList.getName(),user.getLogin());
+                                userShoppingList = dataManager.getUserShoppingLists(user.getLogin());
                                 adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                                        android.R.layout.simple_list_item_1,
+                                        R.layout.row_shoplist_item,
                                         userShoppingList);
                             }});
                         thread.start();
@@ -187,13 +177,12 @@ public class ListsListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setListViewSettings();
-        View gowno = getView();
         groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1,userShoppingList
+                R.layout.row_shoplist_item,userShoppingList
         );
         groupView.setAdapter(adapter);
-        //
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

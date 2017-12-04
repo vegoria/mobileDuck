@@ -37,6 +37,10 @@ public class User {
     public String getLogin() {
         return login;
     }
+    @Override
+    public String toString(){
+        return getLogin();
+    }
 
     public void setLogin(String login) {
         this.login = login;
