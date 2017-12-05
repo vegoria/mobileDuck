@@ -55,6 +55,7 @@ public class ListsListFragment extends Fragment {
     private ArrayAdapter<ShoppingList> adapter;
     private List <User> friendsList;
     private List<UserFriendKey> userFriendKeyList;
+    private String userLogin;
     public ListsListFragment() {
         // Required empty public constructor
     }
@@ -90,8 +91,12 @@ public class ListsListFragment extends Fragment {
                 .getSharedPreferences(
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
-        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+        userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+        getOwnShoppingList();
+    }
 
+    private void getOwnShoppingList()
+    {
         Thread thread = new Thread(new Runnable()
         {
             @Override
@@ -220,31 +225,12 @@ public class ListsListFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
+                userShoppingList.clear();
+                getOwnShoppingList();
                 if (checkboxvariable.isChecked())
                 {
-                    Thread thread = new Thread(new Runnable()
-                    {
-                        @Override
-                        public void run() {
-                            friendsList = dataManager.getUserFriends(user.getLogin());
-
-                            for(User user : friendsList){
-                                for(ShoppingList shoppingList : dataManager.getUserShoppingLists(user.getId())){
-                                    userShoppingList.add(shoppingList);
-                                }
-                            }
-                            adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                                    R.layout.row_shoplist_item,
-                                    userShoppingList);
-                        }});
-                    thread.start();
-                    try{
-                        thread.join();
-                    }
-                    catch (InterruptedException e){}
-
-                    groupView.setAdapter(adapter);}
+                    getFriendsLists();
+                }
             }
         });
 
@@ -255,6 +241,32 @@ public class ListsListFragment extends Fragment {
         groupView.setAdapter(adapter);
         setListViewSettings();
 
+    }
+
+    private void getFriendsLists()
+    {
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                friendsList = dataManager.getUserFriends(user.getLogin());
+
+                for(User user : friendsList){
+                    for(ShoppingList shoppingList : dataManager.getUserShoppingLists(user.getId())){
+                        userShoppingList.add(shoppingList);
+                    }
+                }
+                adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                        R.layout.row_shoplist_item,
+                        userShoppingList);
+            }});
+        thread.start();
+        try{
+            thread.join();
+        }
+        catch (InterruptedException e){}
+
+        groupView.setAdapter(adapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -298,6 +310,9 @@ public class ListsListFragment extends Fragment {
 
     @Override
     public void onResume() {
+        userShoppingList.clear();
+        getOwnShoppingList();
+        getFriendsLists();
         super.onResume();
     }
 }

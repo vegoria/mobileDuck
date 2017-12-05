@@ -26,12 +26,4 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="70dp" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="362dp"
-        android:layout_height="47dp"
-        android:onClick="onClickCancel"
-        android:text="@string/cancel"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="129dp" />
-    </LinearLayout>
+</LinearLayout>

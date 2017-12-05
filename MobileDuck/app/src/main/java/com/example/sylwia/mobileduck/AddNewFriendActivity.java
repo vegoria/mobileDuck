@@ -72,8 +72,4 @@ public class AddNewFriendActivity extends AppCompatActivity {
         joinThread(thread);
         finish();
     }
-
-    public void onClickCancel(View view){
-        finish();
-    }
 }
