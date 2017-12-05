@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_input">User name</string>
+    <string name="save_button">Save</string>
+    <string name="preference_file_key">MobileDuckPreferences</string>
+    <string name="preference_user_login">MobileDuckLogin</string>
+    <string name="could_not_add_user">Could not create user. Try with another login.</string>
+    <string name="change_fragment_button">Change view</string>
+    <string name="add_list_button">Add list</string>
+    <string name="add_friend_button">Add friend</string>
+    <string name="number_of_items">Count</string>
+    <string name="item_name">Item</string>
+    <string name="add_friend">Add friend</string>
+    <string name="cancel">Cancel</string>
+    <string name="write_name_of_new_shoplist">List name</string>
+    <string name="add_shoplist">Add list</string>
+    <string name="cannot_download_item">Can not download items</string>
+    <string name="added_to_shopping_list"> added to shop list</string>
+    <string name="could_not_add_to_list">Can not add to list</string>
+    <string name="delete_friend">Remove friend?</string>
+    <string name="are_u_sure">Are you sure?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="list">List</string>
+    <string name="show_friends_lists">Show friends lists</string>
+    <string name="name">Name</string>
+</resources>

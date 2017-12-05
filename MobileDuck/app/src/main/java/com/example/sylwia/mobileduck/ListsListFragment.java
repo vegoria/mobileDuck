@@ -231,7 +231,13 @@ public class ListsListFragment extends Fragment {
                 if (checkboxvariable.isChecked())
                 {
                     getFriendsLists();
+
                 }
+                groupView = (ListView) getView().findViewById(R.id.shoppingList);
+                adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                        R.layout.row_shoplist_item,userShoppingList
+                );
+                groupView.setAdapter(adapter);
             }
         });
 
@@ -266,8 +272,6 @@ public class ListsListFragment extends Fragment {
             thread.join();
         }
         catch (InterruptedException e){}
-
-        groupView.setAdapter(adapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -313,7 +317,16 @@ public class ListsListFragment extends Fragment {
     public void onResume() {
         userShoppingList.clear();
         getOwnShoppingList();
-        getFriendsLists();
+        CheckBox checkboxvariable=(CheckBox)getView().findViewById(R.id.checkBox);
+
+        if (checkboxvariable.isChecked()) {
+            getFriendsLists();
+        }
+        groupView = (ListView) getView().findViewById(R.id.shoppingList);
+        adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                R.layout.row_shoplist_item,userShoppingList
+        );
+        groupView.setAdapter(adapter);
         super.onResume();
     }
 }
