@@ -21,9 +21,8 @@ public class ShoppingListReadDao implements ReadDao<ShoppingList> {
     private static Dao<ShoppingList, Integer> shoppingListDao;
 
     public ShoppingListReadDao() {
-        Connection.getInstance();
         try {
-            shoppingListDao = DaoManager.createDao(Connection.getConnectionSource(), ShoppingList.class);
+            shoppingListDao = DaoManager.createDao(new Connection().getConnectionSource(), ShoppingList.class);
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

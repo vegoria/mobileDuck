@@ -1,6 +1,7 @@
 package com.example.sylwia.mobileduck;
 
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,9 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shop);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         if(findViewById(R.id.fragments_holder) != null)
         {
             if(savedInstanceState == null)
@@ -30,7 +34,6 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
 
     private void setStartupFragment()
     {
-        //TODO: add proper fragment name
         getSupportFragmentManager().beginTransaction().add(R.id.fragments_holder, new ListsListFragment()).commit();
     }
 
@@ -43,33 +46,31 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
 
     private void setAddListListener()
     {
-//        Button addListButton = (Button) findViewById(R.id.add_list_button);
-//        addListButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-                //TODO: add propoer activity name
-          //      Intent addListIntent = new Intent(getApplicationContext(), AddListActivity.class);
-            //    startActivity(addListIntent);
-//            }
-//        });
+        Button addListButton = (Button) findViewById(R.id.add_list_button);
+        addListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addListIntent = new Intent(getApplicationContext(), AddNewShoplistActivity.class);
+                startActivity(addListIntent);
+            }
+        });
     }
 
     private void setAddFriendListener()
     {
-//        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
-//        addListButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO: add propoer activity name
-           //     Intent addListIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
-            //    startActivity(addListIntent);
-//            }
-//        });
+        Button addListButton = (Button) findViewById(R.id.add_friend_buttom);
+        addListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addListIntent = new Intent(getApplicationContext(), AddNewFriendActivity.class);
+                startActivity(addListIntent);
+            }
+        });
     }
 
     private void setChangeFragmentListener()
     {
-        /*Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
+        Button switchFragmentButton = (Button) findViewById(R.id.change_fragment_button);
         switchFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +85,7 @@ public class MyShopActivity extends AppCompatActivity implements ListsListFragme
                     setShoppingListFragment();
                 }
             }
-        });*/
+        });
     }
 
     private void setShoppingListFragment()

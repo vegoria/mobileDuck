@@ -14,5 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40sp"
         android:layout_marginBottom="60sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 </FrameLayout>

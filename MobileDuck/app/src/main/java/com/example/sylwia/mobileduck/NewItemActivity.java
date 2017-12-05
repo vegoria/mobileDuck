@@ -81,10 +81,9 @@ public class NewItemActivity extends AppCompatActivity {
             Thread newThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    itemAdded = dataManager.addItem(itemName, numberOfItems, 0, user.getId(), shoppingList.getId());
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     Date date = new Date();
                     shoppingList.setModificationDate(date);
+                    shoppingList.setName(shoppingList.getName().replace("[^a-zA-Z0-9]", ""));
                     dataManager.updateShoppingList(shoppingList);
                 }
             });

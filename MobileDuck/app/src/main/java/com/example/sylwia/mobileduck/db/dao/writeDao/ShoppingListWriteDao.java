@@ -21,9 +21,8 @@ public class ShoppingListWriteDao implements WriteDao<ShoppingList> {
 
     public ShoppingListWriteDao()
     {
-        Connection.getInstance();
         try {
-            shoppingListDao = DaoManager.createDao(Connection.getConnectionSource(), ShoppingList.class);
+            shoppingListDao = DaoManager.createDao(new Connection().getConnectionSource(), ShoppingList.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

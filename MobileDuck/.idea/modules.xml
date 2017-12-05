@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MobileDuck.iml" filepath="$PROJECT_DIR$/MobileDuck.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\vegor\Desktop\Nowy folder\mobileDuck\MobileDuck\app\app.iml" filepath="C:\Users\vegor\Desktop\Nowy folder\mobileDuck\MobileDuck\app\app.iml" />
     </modules>
   </component>
 </project>

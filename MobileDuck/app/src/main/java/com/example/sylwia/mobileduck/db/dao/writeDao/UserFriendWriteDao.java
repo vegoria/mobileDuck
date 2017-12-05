@@ -20,10 +20,9 @@ public class UserFriendWriteDao {
     private static Dao<UserFriendKey, Integer> userFriendDao;
 
     public UserFriendWriteDao(){
-        Connection.getInstance();
 
         try {
-            userFriendDao = DaoManager.createDao(Connection.getConnectionSource(), UserFriendKey.class);
+            userFriendDao = DaoManager.createDao(new Connection().getConnectionSource(), UserFriendKey.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }
