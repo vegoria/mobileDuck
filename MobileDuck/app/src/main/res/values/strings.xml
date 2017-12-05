@@ -19,5 +19,14 @@
     <string name="cancel">Anuluj</string>
     <string name="write_name_of_new_shoplist">Wpisz nazwę nowej listy</string>
     <string name="add_shoplist">Dodaj listę</string>
-
+    <string name="cannot_download_item">Nie można pobrać itemów</string>
+    <string name="added_to_shopping_list"> dodano do listy zakupów</string>
+    <string name="could_not_add_to_list">Nie można dodać do listy</string>
+    <string name="delete_friend">Usunąć przyjaciela?</string>
+    <string name="are_u_sure">Jesteś pewien?</string>
+    <string name="yes">TAK</string>
+    <string name="no">NIE</string>
+    <string name="list">Lista</string>
+    <string name="show_friends_lists">Pokaż listy przyjaciół</string>
+    <string name="name">Nazwa</string>
 </resources>

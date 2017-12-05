@@ -78,6 +78,13 @@ public class ShopListActivity extends AppCompatActivity {
         this.unregisterReceiver(receiver);
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        UpdateList();
+    }
+
     private void downloadItems()
     {
         final Thread thread = new Thread(new Runnable()
@@ -96,7 +103,7 @@ public class ShopListActivity extends AppCompatActivity {
         }
         catch(InterruptedException e)
         {
-            Toast.makeText(this, "Cannot download items", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.cannot_download_item), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,7 +142,7 @@ public class ShopListActivity extends AppCompatActivity {
     {
         // Wykonywane w momencie zmiany daty w bazie danych
         // Tu zrobic update listy
-        Toast.makeText(this,"UPDATE! Some changes in list...", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"UPDATE! Some changes in list...", Toast.LENGTH_LONG).show();
         downloadItems();
         populateList();
     }

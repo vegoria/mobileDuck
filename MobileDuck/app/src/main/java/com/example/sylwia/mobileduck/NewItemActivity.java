@@ -77,7 +77,7 @@ public class NewItemActivity extends AppCompatActivity {
 
         if(itemAdded)
         {
-            Toast.makeText(this, itemName + " dodano do listy zakupów", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, itemName + getString(R.string.added_to_shopping_list), Toast.LENGTH_SHORT).show();
             Thread newThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -98,7 +98,7 @@ public class NewItemActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "Nie udało się dodać do listy", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.could_not_add_to_list), Toast.LENGTH_SHORT).show();
             finish();
         }
     }
