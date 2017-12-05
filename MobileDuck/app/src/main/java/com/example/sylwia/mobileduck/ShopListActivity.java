@@ -96,7 +96,7 @@ public class ShopListActivity extends AppCompatActivity {
         }
         catch(InterruptedException e)
         {
-            Toast.makeText(this, "Cannot download items", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.cannot_download_item), Toast.LENGTH_SHORT).show();
         }
     }
 

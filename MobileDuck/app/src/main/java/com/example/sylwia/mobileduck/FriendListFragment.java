@@ -128,9 +128,9 @@ public class FriendListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final User selectedUser = (User) groupView.getItemAtPosition(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
-                alert.setTitle("Delete Friend");
-                alert.setMessage("Are you sure?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alert.setTitle(getString(R.string.delete_friend));
+                alert.setMessage(getString(R.string.are_u_sure));
+                alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dial, int i) {
                         Thread thread = new Thread(new Runnable()
@@ -152,7 +152,7 @@ public class FriendListFragment extends Fragment {
                         groupView.setAdapter(adapter);
                     }
                 });
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dial, int i) {
                         dial.dismiss();
