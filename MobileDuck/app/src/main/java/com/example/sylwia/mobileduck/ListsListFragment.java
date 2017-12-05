@@ -21,6 +21,7 @@ import android.widget.ListView;
 import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
+import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +50,9 @@ public class ListsListFragment extends Fragment {
     private Manager dataManager;
     private User user;
     private List<ShoppingList> userShoppingList;
-    private  ArrayAdapter<ShoppingList> adapter;
-
+    private ArrayAdapter<ShoppingList> adapter;
+    private List <User> friendsList;
+    private List<UserFriendKey> userFriendKeyList;
     public ListsListFragment() {
         // Required empty public constructor
     }
@@ -218,7 +220,13 @@ public class ListsListFragment extends Fragment {
                     {
                         @Override
                         public void run() {
-                            userShoppingList = dataManager.getUserShoppingLists(user.getId());
+                            friendsList = dataManager.getUserFriends(user.getLogin());
+
+                            for(User user : friendsList){
+                                for(ShoppingList shoppingList : dataManager.getUserShoppingLists(user.getId())){
+                                    userShoppingList.add(shoppingList);
+                                }
+                            }
                             adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                                     R.layout.row_shoplist_item,
                                     userShoppingList);
