@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -127,43 +128,23 @@ public class FriendListFragment extends Fragment {
             groupView = (ListView) getView().findViewById(R.id.friendList);
 
         groupView.setClickable(true);
-
+        groupView.setLongClickable(true);
         groupView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final User selectedUser = (User) groupView.getItemAtPosition(position);
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
-                alert.setTitle(getString(R.string.delete_friend));
-                alert.setMessage(getString(R.string.are_u_sure));
-                alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                new Thread(new Runnable() {
+
                     @Override
-                    public void onClick(DialogInterface dial, int i) {
-                        Thread thread = new Thread(new Runnable()
-                        {
-                            @Override
-                            public void run() {
-
-                                dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
-                                userList = dataManager.getUserFriends(selectedUser.getLogin());
-                                adapter = new ArrayAdapter<User>(getActivity().getApplicationContext(),
-                                        R.layout.row_shoplist_item,
-                                        userList);
-                            }});
-                        try{
-                            thread.join();
-                        }
-                        catch (InterruptedException e){}
-
+                    public void run() {
+                        dataManager.removeFriend(user.getLogin(), selectedUser.getLogin());
+                        userList = dataManager.getUserFriends(selectedUser.getLogin());
+                        adapter = new ArrayAdapter<User>(getActivity().getApplicationContext(),
+                                R.layout.row_shoplist_item,
+                                userList);
                         groupView.setAdapter(adapter);
-                    }
-                });
-                alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dial, int i) {
-                        dial.dismiss();
-                    }
-                });
-                alert.show();
+                    }}).run();
+
                 return true;
             }
         });
@@ -179,6 +160,10 @@ public class FriendListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setListViewSettings();
         groupView = (ListView) getView().findViewById(R.id.friendList); //extract to method
         adapter=new ArrayAdapter<User>(getActivity().getApplicationContext(),
