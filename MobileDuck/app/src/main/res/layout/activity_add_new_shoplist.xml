@@ -21,7 +21,6 @@
         android:id="@+id/addShoplistButton"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:onClick="onClickAddNewShoplist"
         android:text="@string/add_shoplist"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="70dp" />
