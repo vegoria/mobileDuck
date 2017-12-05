@@ -231,12 +231,13 @@ public class ListsListFragment extends Fragment {
                 if (checkboxvariable.isChecked())
                 {
                     getFriendsLists();
-                    groupView = (ListView) getView().findViewById(R.id.shoppingList);
-                    adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
-                            R.layout.row_shoplist_item,userShoppingList
-                    );
-                    groupView.setAdapter(adapter);
+
                 }
+                groupView = (ListView) getView().findViewById(R.id.shoppingList);
+                adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                        R.layout.row_shoplist_item,userShoppingList
+                );
+                groupView.setAdapter(adapter);
             }
         });
 
