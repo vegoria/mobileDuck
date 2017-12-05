@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import com.example.sylwia.mobileduck.db.Manager;
 import com.example.sylwia.mobileduck.db.tables.ShoppingList;
 import com.example.sylwia.mobileduck.db.tables.User;
+import com.example.sylwia.mobileduck.db.tables.UserFriendKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +52,9 @@ public class ListsListFragment extends Fragment {
     private Manager dataManager;
     private User user;
     private List<ShoppingList> userShoppingList;
-    private  ArrayAdapter<ShoppingList> adapter;
-
+    private ArrayAdapter<ShoppingList> adapter;
+    private List <User> friendsList;
+    private List<UserFriendKey> userFriendKeyList;
     public ListsListFragment() {
         // Required empty public constructor
     }
@@ -201,9 +205,14 @@ public class ListsListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_lists_list, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
 
         final CheckBox checkboxvariable=(CheckBox)getView().findViewById(R.id.checkBox);
 
@@ -218,7 +227,13 @@ public class ListsListFragment extends Fragment {
                     {
                         @Override
                         public void run() {
-                            userShoppingList = dataManager.getUserShoppingLists(user.getId());
+                            friendsList = dataManager.getUserFriends(user.getLogin());
+
+                            for(User user : friendsList){
+                                for(ShoppingList shoppingList : dataManager.getUserShoppingLists(user.getId())){
+                                    userShoppingList.add(shoppingList);
+                                }
+                            }
                             adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                                     R.layout.row_shoplist_item,
                                     userShoppingList);
@@ -233,10 +248,7 @@ public class ListsListFragment extends Fragment {
             }
         });
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        groupView = (ListView) getView().findViewById(R.id.shoppingList); 
+        groupView = (ListView) getView().findViewById(R.id.shoppingList);
         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                 R.layout.row_shoplist_item,userShoppingList
         );
@@ -282,5 +294,10 @@ public class ListsListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

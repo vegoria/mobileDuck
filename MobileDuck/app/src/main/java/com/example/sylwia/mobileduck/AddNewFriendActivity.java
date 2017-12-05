@@ -70,5 +70,6 @@ public class AddNewFriendActivity extends AppCompatActivity {
         });
         thread.start();
         joinThread(thread);
+        finish();
     }
 }
