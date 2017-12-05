@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,6 +70,20 @@ public class ShopListActivity extends AppCompatActivity {
         listNameView.setText(shoppingList.getName());
         if(!ownList)
             addItemButton.setVisibility(View.INVISIBLE);
+        final Manager manager = new Manager();
+
+        itemsListView.setLongClickable(true);
+        itemsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                final Item item = (Item) itemsListView.getItemAtPosition(position);
+                manager.removeItem(item);
+                itemsListView.setAdapter(adapter);
+                downloadItems();
+                populateList();
+                return true;
+            }
+        });
 
     }
 

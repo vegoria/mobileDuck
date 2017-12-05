@@ -82,6 +82,10 @@ public class Manager {
         shoppingListWriteDao.delete(getShoppingList(shopListName, userLogin));
     }
 
+    public void removeShoppingList(ShoppingList shoppingList){
+        shoppingListWriteDao.delete(shoppingList);
+    }
+
     public void updateShoppingList(ShoppingList shoppingList) {
         shoppingListWriteDao.update(shoppingList);
     }
@@ -132,5 +136,9 @@ public class Manager {
 
     public List<User> getAllUsers(){
         return userReadDao.getAll();
+    }
+
+    public void removeItem(Item item){
+        itemWriteDao.delete(item);
     }
 }
