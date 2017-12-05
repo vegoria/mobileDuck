@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.example.sylwia.mobileduck.db.Manager;
@@ -203,10 +204,39 @@ public class ListsListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final CheckBox checkboxvariable=(CheckBox)getView().findViewById(R.id.checkBox);
+
+        checkboxvariable.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (checkboxvariable.isChecked())
+                {
+                    Thread thread = new Thread(new Runnable()
+                    {
+                        @Override
+                        public void run() {
+                            userShoppingList = dataManager.getUserShoppingLists(user.getId());
+                            adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
+                                    R.layout.row_shoplist_item,
+                                    userShoppingList);
+                        }});
+                    thread.start();
+                    try{
+                        thread.join();
+                    }
+                    catch (InterruptedException e){}
+
+                    groupView.setAdapter(adapter);}
+            }
+        });
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        groupView = (ListView) getView().findViewById(R.id.shoppingList); //extract to method
+        groupView = (ListView) getView().findViewById(R.id.shoppingList); 
         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                 R.layout.row_shoplist_item,userShoppingList
         );
