@@ -26,4 +26,7 @@
     <string name="are_u_sure">Jesteś pewien?</string>
     <string name="yes">TAK</string>
     <string name="no">NIE</string>
+    <string name="list">Lista</string>
+    <string name="show_friends_lists">Pokaż listy przyjaciół</string>
+    <string name="name">Nazwa</string>
 </resources>

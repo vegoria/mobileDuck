@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="24dp"
         android:textColor="@android:color/black"
-        android:text="Lista"/>
+        android:text="@string/list"/>
 
     <Button
         android:id="@+id/add_item_button"
