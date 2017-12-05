@@ -47,6 +47,7 @@ public class FriendListFragment extends Fragment {
     private User user;
     private List<User> userList;
     private  ArrayAdapter<User> adapter;
+    private String userLogin;
 
     public FriendListFragment() {
         // Required empty public constructor
@@ -83,7 +84,7 @@ public class FriendListFragment extends Fragment {
                 .getSharedPreferences(
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE);
-        final String userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
+        userLogin = sharedPref.getString(getString(R.string.preference_user_login), null);
 
         Thread thread = new Thread(new Runnable()
         {
@@ -101,6 +102,10 @@ public class FriendListFragment extends Fragment {
         catch(InterruptedException e)
         {
         }
+        getFriends();
+    }
+
+    private void getFriends(){
         Thread thread2 = new Thread(new Runnable()
         {
             @Override
@@ -190,6 +195,12 @@ public class FriendListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onResume(){
+        getFriends();
+        super.onResume();
     }
 
     /**
