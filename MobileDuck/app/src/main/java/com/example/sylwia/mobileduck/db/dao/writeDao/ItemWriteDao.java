@@ -20,7 +20,7 @@ public class ItemWriteDao implements WriteDao<Item> {
 
     public ItemWriteDao() {
         try {
-            itemDao = DaoManager.createDao(new Connection().getConnectionSource(), Item.class);
+            itemDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), Item.class);
         }
         catch(java.sql.SQLException e) {
             Log.e(TAG, e.getMessage());

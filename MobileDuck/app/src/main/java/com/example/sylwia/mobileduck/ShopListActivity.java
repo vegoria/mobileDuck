@@ -77,10 +77,12 @@ public class ShopListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final Item item = (Item) itemsListView.getItemAtPosition(position);
-                manager.removeItem(item);
-                itemsListView.setAdapter(adapter);
-                downloadItems();
-                populateList();
+                if(ownList){
+                    manager.removeItem(item);
+                    itemsListView.setAdapter(adapter);
+                    downloadItems();
+                    populateList();
+                }
                 return true;
             }
         });

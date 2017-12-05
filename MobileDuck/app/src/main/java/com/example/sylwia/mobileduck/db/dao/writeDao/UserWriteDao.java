@@ -21,7 +21,7 @@ public class UserWriteDao implements WriteDao<User> {
 
     public UserWriteDao() {
         try {
-            userDao = DaoManager.createDao(new Connection().getConnectionSource(), User.class);
+            userDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), User.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

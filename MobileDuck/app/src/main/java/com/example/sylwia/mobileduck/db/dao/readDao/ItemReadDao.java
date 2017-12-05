@@ -24,7 +24,7 @@ public class ItemReadDao implements ReadDao<Item> {
 
     public ItemReadDao() {
         try {
-            itemDao = DaoManager.createDao(new Connection().getConnectionSource(), Item.class);
+            itemDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), Item.class);
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

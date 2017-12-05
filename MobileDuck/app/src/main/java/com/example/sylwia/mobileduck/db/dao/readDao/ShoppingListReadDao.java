@@ -22,7 +22,7 @@ public class ShoppingListReadDao implements ReadDao<ShoppingList> {
 
     public ShoppingListReadDao() {
         try {
-            shoppingListDao = DaoManager.createDao(new Connection().getConnectionSource(), ShoppingList.class);
+            shoppingListDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), ShoppingList.class);
         }
         catch (SQLException e) {
             Log.e(TAG, e.getMessage());

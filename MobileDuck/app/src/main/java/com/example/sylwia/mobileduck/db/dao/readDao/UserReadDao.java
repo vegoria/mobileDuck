@@ -23,7 +23,7 @@ public class UserReadDao implements ReadDao<User> {
 
     public UserReadDao() {
         try {
-            userDao = DaoManager.createDao(new Connection().getConnectionSource(), User.class);
+            userDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), User.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

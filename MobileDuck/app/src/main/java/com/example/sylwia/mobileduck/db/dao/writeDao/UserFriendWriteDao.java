@@ -22,7 +22,7 @@ public class UserFriendWriteDao {
     public UserFriendWriteDao(){
 
         try {
-            userFriendDao = DaoManager.createDao(new Connection().getConnectionSource(), UserFriendKey.class);
+            userFriendDao = DaoManager.createDao(Connection.getInstance().getConnectionSource(), UserFriendKey.class);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
         }

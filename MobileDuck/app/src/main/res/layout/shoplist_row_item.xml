@@ -15,7 +15,9 @@
         android:longClickable="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="24dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 
     <TextView
@@ -27,7 +29,9 @@
         android:text="0"
         android:longClickable="true"
         android:textSize="24dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <CheckBox
         android:id="@+id/shoplist_item_status"
@@ -36,6 +40,8 @@
         android:layout_alignParentRight="true"
         android:checked="false"
         android:longClickable="false"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 </RelativeLayout>
