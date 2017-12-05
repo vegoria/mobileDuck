@@ -44,7 +44,7 @@ public class AddNewFriendActivity extends AppCompatActivity {
     }
 
     private void setSpinnerAdapter() {
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, allUsers);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.row_shoplist_item, allUsers);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
     }
