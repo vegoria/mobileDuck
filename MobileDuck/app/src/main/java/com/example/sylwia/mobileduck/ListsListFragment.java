@@ -176,31 +176,10 @@ public class ListsListFragment extends Fragment {
         thread.start();
 
     }
-
-    boolean result = false;
-    private boolean isOwnList(final ShoppingList list)
+    
+    private boolean isOwnList(ShoppingList list)
     {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run(){
-                List<ShoppingList> userList = dataManager.getUserShoppingLists(user.getId());
-                for (ShoppingList singleList: userList)
-                {
-                    if(singleList.getId() == list.getId())
-                        result = true;
-                }
-            }
-        });
-        thread.start();
-        try
-        {
-            thread.join();
-        }
-        catch(InterruptedException e)
-        {
-        }
-        return result;
+        return user.getId() == list.getOwner();
     }
 
 

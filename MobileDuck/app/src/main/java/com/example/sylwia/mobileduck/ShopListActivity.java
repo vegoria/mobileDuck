@@ -57,7 +57,7 @@ public class ShopListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.listId = intent.getLongExtra("ListId", 0);
-        this.ownList = intent.getBooleanExtra("OwnList", true);
+        this.ownList = intent.getBooleanExtra("OwnList", false);
         itemsListView = (ListView)findViewById(R.id.shopListView);
         listNameView = (TextView)findViewById(R.id.shoplist_list_name);
         addItemButton = (Button)findViewById(R.id.add_item_button);
