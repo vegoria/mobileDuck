@@ -159,9 +159,16 @@ public class ListsListFragment extends Fragment {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                         final ShoppingList selectedList = (ShoppingList) groupView.getItemAtPosition(position);
-                        dataManager.removeShoppingList(selectedList);
+                        if(isOwnList(selectedList)){
+                            dataManager.removeShoppingList(selectedList);
+                        }
                         //dataManager.removeShoppingList(selectedList.getName().replaceAll("[^ a-zA-Z0-9]", ""),user.getLogin().replaceAll("[^ a-zA-Z0-9]", ""));
                         userShoppingList = dataManager.getUserShoppingLists(user.getLogin().replaceAll("[^ a-zA-Z0-9]", ""));
+                        CheckBox checkboxvariable=(CheckBox)getView().findViewById(R.id.checkBox);
+
+                        if (checkboxvariable.isChecked()) {
+                            getFriendsLists();
+                        }
                         adapter=new ArrayAdapter<ShoppingList>(getActivity().getApplicationContext(),
                                 R.layout.row_shoplist_item,
                                 userShoppingList);
@@ -176,7 +183,7 @@ public class ListsListFragment extends Fragment {
         thread.start();
 
     }
-    
+
     private boolean isOwnList(ShoppingList list)
     {
         return user.getId() == list.getOwner();
