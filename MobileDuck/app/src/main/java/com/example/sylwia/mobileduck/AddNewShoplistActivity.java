@@ -34,8 +34,4 @@ public class AddNewShoplistActivity extends AppCompatActivity {
         thread.start();
     }
 
-    void onClickCancel(View view){
-        finish();
-    }
-
 }

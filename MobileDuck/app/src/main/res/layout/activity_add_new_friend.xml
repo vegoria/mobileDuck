@@ -20,10 +20,4 @@
         android:onClick="onClickAddFriend"
         android:text="@string/add_friend" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:onClick="onClickCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel" />
 </LinearLayout>
